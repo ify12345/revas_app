@@ -3,7 +3,7 @@ import React from 'react'
 import { View,Text, SafeAreaView, TextInput, Picker, Switch, Checkbox, Slider, TouchableOpacity} from 'react-native';
 import { useState } from 'react';
 
-const Form = ({navigation}) => {
+const Form2 = ({navigation}) => {
     const [isChecked, setIsChecked] = useState(true);
     const handleToggleCheckbox = () => {
         setIsChecked(!isChecked);
@@ -13,27 +13,27 @@ const Form = ({navigation}) => {
     <SafeAreaView style={{flex:1, marginHorizontal: 20}}>
         <Text style={{fontSize: 24, fontWeight:"700", marginVertical: 10}}>Basic Information</Text>
     <View style={{flexDirection: "column" , gap: 4}}>
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:50}}>Company Name</Text>
+        <Text style={{fontSize: 14, fontWeight:"700",marginTop:40}}>Company Name</Text>
         <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter company name'/>
-
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Email address</Text>
+ 
+        <Text style={{fontSize: 14, fontWeight:"700",marginTop:10}}>Business email address</Text>
         <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}}   placeholder="Enter your email address"
         keyboardType="email-address" />
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Phone number</Text>
+        <Text style={{fontSize: 14, fontWeight:"700",marginTop:10}}>Phone number</Text>
         <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter your phone number' keyboardType='numeric'/>
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Position </Text>
+        <Text style={{fontSize: 14, fontWeight:"700",marginTop:10}}>Position </Text>
         <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter job role'/>
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Country</Text>
+        <Text style={{fontSize: 14, fontWeight:"700",marginTop:10}}>Country</Text>
         <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter your country'/>
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Plastic volume</Text>
+        <Text style={{fontSize: 14, fontWeight:"700",marginTop:10}}>Plastic volume</Text>
         <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter volume'/>
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Factory capacity </Text>
-        <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter factory capacity'/>
+        <Text style={{fontSize: 14, fontWeight:"700",marginTop:10}}>Demand capacity(monthly) </Text>
+        <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter demand capacity in tonnes'/>
 
          <View style={{flexDirection:"row", gap:4, marginTop:10}}>
          <View
@@ -71,4 +71,4 @@ const Form = ({navigation}) => {
   )
 }
 
-export default Form
+export default Form2
