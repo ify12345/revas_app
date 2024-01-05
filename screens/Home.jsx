@@ -63,7 +63,7 @@ const Home = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={{ backgroundColor: 'black', marginHorizontal: 10, borderRadius: 50, padding: 20 }}>
+        <TouchableOpacity style={{ backgroundColor: 'black', marginHorizontal: 10, borderRadius: 3, padding: 20 }}>
           <Text style={{ color: 'white', textAlign: 'center' }} onPress={() => navigation.replace('Form')}>
             Continue
           </Text>
