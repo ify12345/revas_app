@@ -34,7 +34,7 @@ export default function ProductMore({route}) {
         </View>
         <View style={styles.container2}>
           <Text style={{fontSize:20, fontWeight:"200"}}>Price</Text>
-          <Text style={{fontSize:20, fontWeight:"400", color:"#006C1E"}}>$3,334.0</Text>
+          <Text style={{fontSize:20, fontWeight:"400", color:"#006C1E"}}>$3,334.</Text>
         
         </View>
         <View style={styles.container2}>
