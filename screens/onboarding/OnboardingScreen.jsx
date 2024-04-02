@@ -93,21 +93,19 @@ const OnboardingScreen = ({ navigation }) => {
       <View
         style={styles.imgContainer}
       >
-        <View
-          style={{ alignItems: "center", flexDirection: "column", gap: 30 }}
-        >
+      
           <View
             style={
               styles.container1
           }
           >
-            <Image source={item.image} style={{ width: 350, height: 350 }} />
+            <Image style={styles.img} source={item.image}  />
           </View>
-          <View style={{ flexDirection: "column", gap: 10 }}>
+          <View style={{ flexDirection: "column",gap:20, }}>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.subtitle}>{item.subtitle}</Text>
           </View>
-        </View>
+
 
         {currentSlide == slides.length - 1 ? (
           <TouchableOpacity
@@ -132,7 +130,7 @@ const OnboardingScreen = ({ navigation }) => {
     <SafeAreaView style={styles.generalContainer}>
     
       <Header />
-      <ScrollView>
+    
         <FlatList
           data={slides}
           horizontal
@@ -142,7 +140,7 @@ const OnboardingScreen = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => <Slide item={item} />}
         />
-      </ScrollView>
+     
       
     </SafeAreaView>
   );

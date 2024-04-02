@@ -34,22 +34,25 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     borderRadius: 3,
     width: "90%",
-    padding: 20,
     color: "white",
+    paddingVertical: SIZES.large
   },
   imgContainer: {
     alignItems: "center",
     width,
+    height: '100%',
     flex: 1,
+    justifyContent: "space-around",
     flexDirection: "column",
-    justifyContent: "space-between",
     gap: SIZES.large
   },
   container1: {
-    paddingVertical: SIZES.large,
-    marginTop: 5,
     width,
-    alignItems: "center",
+    alignItems: 'center'
+  },
+  img:{
+    width: 375
+
   },
   generalContainer: {
     height,
