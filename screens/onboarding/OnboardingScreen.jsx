@@ -14,7 +14,9 @@ import { useState } from "react";
 import React from "react"
 import { width,height } from "../../assets/constants";
 import styles from "./onboarding.style"
-const COLORS = { white: "green" };
+import RTouchableOpacity from "../../components/RTouchableOpacity";
+import RText from "../../components/RText";
+
 
 const slides = [
   {
@@ -108,18 +110,37 @@ const OnboardingScreen = ({ navigation }) => {
 
 
         {currentSlide == slides.length - 1 ? (
-          <TouchableOpacity
-            style={[styles.btnContainer]}
-            onPress={() => navigation.replace("Home")}
+          <RTouchableOpacity
+            backgroundColor = "black"
+            width = "90%"
+            onPress={() => navigation.navigate("Home")}
           >
-            <Text style={{ color: "white", textAlign: "center" }}>
+            <RText
+                color="#fff"
+                fontSize="14"
+                fontWeight="medium"
+            >
               Get started
-            </Text>
-          </TouchableOpacity>
+            </RText>
+          </RTouchableOpacity>
         ) : (
-          <TouchableOpacity style={[styles.btnContainer]} onPress={goNext}>
-            <Text style={{ color: "white", textAlign: "center" }}>Next</Text>
-          </TouchableOpacity>
+
+          <RTouchableOpacity
+           onPress={goNext}
+           backgroundColor = "black"
+           width = "90%"
+           
+           >
+             <RText
+                color="#fff"
+                fontSize="14"
+                fontWeight="medium"
+              >
+                Next 
+             </RText>
+           
+          </RTouchableOpacity>
+
         )
         }
       </View>

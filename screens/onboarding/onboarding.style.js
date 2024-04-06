@@ -30,13 +30,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#f5f5f5",
   },
-  btnContainer: {
-    backgroundColor: "black",
-    borderRadius: 3,
-    width: "90%",
-    color: "white",
-    paddingVertical: SIZES.large
-  },
+//   btnContainer: {
+//     paddingVertical: SIZES.large
+//   },
   imgContainer: {
     alignItems: "center",
     width,

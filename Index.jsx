@@ -9,9 +9,8 @@ import { useState,useEffect } from 'react';
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from 'react';
 import React from 'react';
-import Form from './screens/Form';
+import SignUp from './screens/SignUp';
 import Account from './screens/Account';
-import Form2 from './screens/Form2';
 import SignIn from './screens/SignIn';
 
 
@@ -45,9 +44,18 @@ export default function Index() {
         options={{ headerShown: false }}
         />
         
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Form" component={Form} />
-        <Stack.Screen name="Form2" component={Form2} />
+        <Stack.Screen
+         name="Home"
+         component={Home}
+         options={{ headerShown: false }}
+          />
+
+        <Stack.Screen
+         name="SignUp" 
+         component={SignUp}
+         options={{headerShown: false}}
+          />
+      
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="Account" component={Account} />
       </Stack.Navigator>

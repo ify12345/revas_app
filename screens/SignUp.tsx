@@ -1,9 +1,12 @@
 import React from 'react'
-
-import { View,Text, SafeAreaView, TextInput, Picker, Switch, Checkbox, Slider, TouchableOpacity} from 'react-native';
+import styles from './Home.styles';
+import { View, SafeAreaView} from 'react-native';
 import { useState } from 'react';
+import BackButton from '../components/BackButton';
+import RText from '../components/RText';
+import { HInput } from '../components/HForm';
 
-const Form = ({navigation}) => {
+const SignUp = ({navigation}: any) => {
     const [isChecked, setIsChecked] = useState(true);
     const handleToggleCheckbox = () => {
         setIsChecked(!isChecked);
@@ -11,6 +14,17 @@ const Form = ({navigation}) => {
     
   return (
     <SafeAreaView style={{flex:1, marginHorizontal: 20}}>
+      <View style={styles.topBar}>
+        <BackButton />
+        <RText>Back</RText>
+      </View>
+      <HInput
+                        label="First Name"
+                        placeholder="First Name"
+                       
+                    />
+
+{/* 
         <Text style={{fontSize: 24, fontWeight:"700", marginVertical: 10}}>Basic Information</Text>
     <View style={{flexDirection: "column" , gap: 4}}>
         <Text style={{fontSize: 14, fontWeight:"700",marginTop:50}}>Company Name</Text>
@@ -66,9 +80,14 @@ const Form = ({navigation}) => {
             <Text>Sign In</Text>
         </TouchableOpacity>
        </View>
+ */}
+
+
+
+
     </SafeAreaView>
   
   )
 }
 
-export default Form
+export default SignUp
