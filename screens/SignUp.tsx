@@ -1,93 +1,135 @@
-import React from 'react'
-import styles from './Home.styles';
-import { View, SafeAreaView} from 'react-native';
-import { useState } from 'react';
-import BackButton from '../components/BackButton';
-import RText from '../components/RText';
-import { HInput } from '../components/HForm';
+import React from "react";
+import styles from "./Signup.style";
+import { View, SafeAreaView } from "react-native";
+import { useState } from "react";
+import BackButton from "../components/BackButton";
+import RText from "../components/RText";
+import { HCheckbox, HInput } from "../components/HForm";
+import RTouchableOpacity from "../components/RTouchableOpacity";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const SignUp = ({navigation}: any) => {
-    const [isChecked, setIsChecked] = useState(true);
-    const handleToggleCheckbox = () => {
-        setIsChecked(!isChecked);
-      };
-    
+const SignUp = ({ navigation }: any) => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleToggleCheckbox = () => {
+    setIsChecked(!isChecked);
+  };
+
+  const [formData, setFormData] = React.useState({
+    // user_id: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    // confirmPassword: "",
+  });
+
+  const handleSubmit = () => {
+    navigation.navigate("SignIn");
+  };
+
   return (
-    <SafeAreaView style={{flex:1, marginHorizontal: 20}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.topBar}>
         <BackButton />
         <RText>Back</RText>
       </View>
-      <HInput
-                        label="First Name"
-                        placeholder="First Name"
-                       
-                    />
 
-{/* 
-        <Text style={{fontSize: 24, fontWeight:"700", marginVertical: 10}}>Basic Information</Text>
-    <View style={{flexDirection: "column" , gap: 4}}>
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:50}}>Company Name</Text>
-        <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter company name'/>
+      <View style={styles.container1}>
+        <View style={styles.container}>
+          <View style={styles.started}>
+            <RText>Sign up for free</RText>
+            <RText fontSize="20">Get Started</RText>
+          </View>
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Email address</Text>
-        <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}}   placeholder="Enter your email address"
-        keyboardType="email-address" />
+          <HInput
+            label="First Name"
+            type={2}
+            placeholder="Enter first name"
+            onChangeText={(text: any) =>
+              setFormData({
+                ...formData,
+                first_name: text,
+              })
+            }
+            value={formData.first_name}
+          />
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Phone number</Text>
-        <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter your phone number' keyboardType='numeric'/>
+          <HInput
+            label="Last Name"
+            type={2}
+            placeholder="Enter last name"
+            onChangeText={(text: any) =>
+              setFormData({
+                ...formData,
+                last_name: text,
+              })
+            }
+            value={formData.last_name}
+          />
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Position </Text>
-        <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter job role'/>
+          <HInput
+            label="Email"
+            type={2}
+            placeholder="Enter your email"
+            onChangeText={(text: any) =>
+              setFormData({
+                ...formData,
+                email: text,
+              })
+            }
+            value={formData.email}
+          />
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Country</Text>
-        <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter your country'/>
+          <HInput
+            label="Password"
+            type={2}
+            textType="password"
+            placeholder="Enter your password"
+            onChangeText={(text: any) =>
+              setFormData({
+                ...formData,
+                password: text,
+              })
+            }
+            value={formData.password}
+          />
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Plastic volume</Text>
-        <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter volume'/>
+          <View style={styles.checkBox}>
+            <HCheckbox checked={isChecked} setChecked={handleToggleCheckbox} />
+            <RText
+              width="80%"
+              fontSize="10"
+              fontWeight="medium"
+              color="#777777"
+            >
+              I have read and accept the company's Terms & Conditions and
+              Privacy Policy.
+            </RText>
+          </View>
 
-        <Text style={{fontSize: 14, fontWeight:"700",marginTop:20}}>Factory capacity </Text>
-        <TextInput style={{borderWidth:1, padding: 12, borderColor:"#D0D5DD", borderRadius: 7}} placeholder='Enter factory capacity'/>
-
-         <View style={{flexDirection:"row", gap:4, marginTop:10}}>
-         <View
-            style={{
-              width: 20,
-              height: 20,
-              borderRadius: 4,
-              borderWidth: 1,
-              borderColor: 'black',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginRight: 10,
-              backgroundColor: isChecked ? 'black' : 'transparent',
-            }}
+          <RTouchableOpacity
+            backgroundColor="black"
+            //  disabled={disabled}
+            onPress={handleSubmit}
+            //  loading={loading}
+            style={styles.button}
           >
-            {isChecked && <Text style={{ color: 'white' }}>✔</Text>}
-          </View> 
-               <Text style={{width: 296}}>I accept the Terms & Conditions and Privacy Policy by joining Revas.</Text>    
-         </View>
-       
-    </View>
-    
-    <TouchableOpacity style={{backgroundColor: "black", marginHorizontal: 10 ,borderRadius: 50 ,  padding: 20,marginVertical:20}} >
-                <Text style={{color: 'white', textAlign: "center"}}  onPress={()=>navigation.navigate("Account")}>Register</Text>
-    </TouchableOpacity>
-     
-       <View style={{flexDirection:"row", marginHorizontal:"auto", width: '100%',justifyContent:"center"}}>
-        <Text>Already have an account? </Text>
-        <TouchableOpacity onPress={()=>navigation.navigate("SignIn")}>
-            <Text>Sign In</Text>
-        </TouchableOpacity>
-       </View>
- */}
+            <RText color="white">Create an account</RText>
+          </RTouchableOpacity>
+        </View>
 
-
-
-
+        <View style={styles.footerContainer}>
+          <RText>Already have an account?</RText>
+          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+            <RText color="black" fontSize="10" fontWeight="medium">
+              Sign In
+            </RText>
+          </TouchableOpacity>
+        </View>
+      </View>
     </SafeAreaView>
-  
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;
