@@ -56,8 +56,14 @@ export default function Index() {
          options={{headerShown: false}}
           />
       
-        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen 
+        name="SignIn" 
+        component={SignIn}
+        options={{headerShown: false}}
+         />
+
         <Stack.Screen name="Account" component={Account} />
+        
       </Stack.Navigator>
     </NavigationContainer>
    

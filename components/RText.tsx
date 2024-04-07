@@ -8,7 +8,7 @@ type _prop ={
    fontWeight?: "medium" | "semibold";
    color?: string;
    textStyle?: any;
-   width: string
+   width?: string;
 }
 
 

@@ -76,7 +76,7 @@ const HInput = (props: _iProps) => {
         <View>
             {label && (
                 <HText
-                    fontSize="14"
+                    fontSize="10"
                     fontWeight="semibold"
                     textStyle={styles.label}
                 >
@@ -123,14 +123,14 @@ const HCheckbox = (props: _checkbox) => {
         <Pressable
             style={[
                 styles.checkbox,
-                { backgroundColor: checked ? "#5DB400" : "#ffffff" },
+                { backgroundColor: checked ? "black" : "#ffffff" },
             ]}
             onPress={() => setChecked(checked)}
         >
             {checked && (
                 <CheckIcon
                     color="#fff"
-                    fontWeight={800}
+                    fontWeight= "900"
                     width={18}
                     height={18}
                 />
@@ -163,10 +163,10 @@ const styles = StyleSheet.create({
         lineHeight: RFValue(20.03),
     },
     textInput: {
-        height: 56,
+        height: 50,
         flexGrow: 1,
         padding: 16,
-        fontSize: RFValue(14),
+        fontSize: RFValue(10),
         borderRadius: 16,
         borderWidth: 2,
         borderColor: "#F0F0F0",
@@ -176,13 +176,13 @@ const styles = StyleSheet.create({
     },
     textInput2: {
         backgroundColor: "#F0F0F0",
-        height: 56,
+        height: 50,
         flexGrow: 1,
         padding: 16,
-        fontSize: RFValue(14),
-        borderRadius: 16,
-        borderWidth: 2,
-        borderColor: "#F0F0F0",
+        fontSize: RFValue(10),
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#D0D5DD",
         shadowColor: "#f0f0f0",
         shadowOffset: { width: 1, height: 1 },
         shadowOpacity: 5,
@@ -195,8 +195,7 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         borderColor: "#777777",
-        borderWidth: 2,
-        borderRadius: 5,
+        borderRadius: 2,
         alignItems: "center",
         justifyContent: "center",
     },
@@ -211,6 +210,9 @@ const styles = StyleSheet.create({
         right: 14,
         zIndex: 1,
     },
+    placeholer:{
+        fontSize: 10
+    }
 });
 
 export { HSearchInput, HInput, HCheckbox };
