@@ -26,7 +26,10 @@ const SignIn = () => {
   const handleToggleCheckbox = () => {
     setIsChecked(!isChecked);
   };
-
+ 
+  const handleSubmit =()=>{
+    navigation.navigate('Account')
+  }
   return (
     <SafeAreaView
       style={{
@@ -76,7 +79,7 @@ const SignIn = () => {
             style={styles.button}
             backgroundColor="black"
             // disabled={disabled}
-            // onPress={handleSubmit}
+            onPress={handleSubmit}
             // loading={loading}
           >
             <RText fontSize="14" color="white" fontWeight="semibold">
