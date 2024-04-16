@@ -2,10 +2,10 @@
 import React from 'react'
 import { SafeAreaView, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import DashBoard from '../buyer/DashBoard';
-import Market from '../buyer/Market';
-import Orders from '../buyer/Orders';
-import Settings from '../buyer/Settings';
+import DashBoard from '../../buyer/DashBoard';
+import Market from '../../buyer/Market';
+import Orders from '../../buyer/Orders';
+import Settings from '../../buyer/Settings';
 import { Foundation } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';

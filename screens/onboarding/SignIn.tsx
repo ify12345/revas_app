@@ -14,10 +14,10 @@ import {
 import { useState } from "react";
 import styles from "./Signup.style";
 import { useNavigation } from "@react-navigation/native";
-import BackButton from "../components/BackButton";
-import RText from "../components/RText";
-import { HInput } from "../components/HForm";
-import RTouchableOpacity from "../components/RTouchableOpacity";
+import BackButton from "../../components/BackButton";
+import RText from "../../components/RText";
+import { HInput } from "../../components/HForm";
+import RTouchableOpacity from "../../components/RTouchableOpacity";
 
 const SignIn = () => {
   const navigation: any = useNavigation();
@@ -28,7 +28,7 @@ const SignIn = () => {
   };
  
   const handleSubmit =()=>{
-    navigation.navigate('Account')
+    navigation.navigate('SellerProfileSetup')
   }
   return (
     <SafeAreaView

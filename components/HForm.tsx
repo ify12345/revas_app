@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
+import { View, Text, StyleSheet, TextInput, Pressable, FlatList } from "react-native";
 import React, { forwardRef, useState } from "react";
 import {
     EyeIcon,
@@ -6,6 +6,7 @@ import {
     CheckIcon,
     MagnifyingGlassIcon,
 } from "react-native-heroicons/solid";
+import { ArrowDownIcon } from "react-native-heroicons/solid"; 
 import HText from "./RText";
 import { RFValue } from "react-native-responsive-fontsize";
 import HTouchableOpacity from "./RTouchableOpacity";
@@ -28,10 +29,65 @@ interface _iProps {
     ref?: any;
 }
 
+interface _iProps {
+    placeholder?: string;
+    value?: string;
+    onChangeText?: any;
+    label?: string;
+    options?: string[]; // Array of options for the dropdown
+}
+
 interface _checkbox {
     checked?: boolean;
     setChecked?: any;
 }
+
+
+
+const HDropdownInput = forwardRef((props: _iProps, ref) => {
+    const { placeholder, options } = props;
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState("");
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const handleSelectOption = (option: string) => {
+        setSelectedOption(option);
+        setIsDropdownOpen(false);
+        if (props.onChangeText) {
+            props.onChangeText(option);
+        }
+    };
+
+    return (
+        <View style={styles.dropdownContainer}>
+            <Pressable onPress={toggleDropdown}>
+                <View style={styles.dropdownHeader}>
+                    <Text style={styles.selectedOption}>
+                        {selectedOption || placeholder}
+                    </Text>
+                    <ArrowDownIcon color="#667185" width={20} />
+                </View>
+            </Pressable>
+            {isDropdownOpen && (
+                <View style={styles.dropdownListContainer}>
+                    <FlatList
+                        data={options}
+                        renderItem={({ item }) => (
+                            <Pressable onPress={() => handleSelectOption(item)}>
+                                <Text style={styles.dropdownItem}>{item}</Text>
+                            </Pressable>
+                        )}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
+            )}
+        </View>
+    );
+});
+
 
 const HSearchInput = forwardRef((props: _iProps, ref) => {
     const { placeholder, icon } = props;
@@ -140,6 +196,43 @@ const HCheckbox = (props: _checkbox) => {
 };
 
 const styles = StyleSheet.create({
+    dropdownContainer: {
+        position: "relative",
+    },
+    dropdownHeader: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "#D0D5DD",
+        height: 48,
+        borderRadius: 16,
+        paddingLeft: 10,
+        paddingRight: 16,
+        justifyContent: "space-between",
+    },
+    selectedOption: {
+        flex: 1,
+        fontSize: RFValue(14),
+        lineHeight: RFValue(20.03),
+    },
+    dropdownListContainer: {
+        position: "absolute",
+        top: 50, // Adjust according to your dropdown header height
+        width: "100%",
+        backgroundColor: "#fff",
+        borderWidth: 1,
+        borderColor: "#D0D5DD",
+        borderRadius: 16,
+        marginTop: 4, // Adjust according to your dropdown header margin
+    },
+    dropdownItem: {
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        fontSize: RFValue(14),
+    },
+
+
+
     inputContainer: {
         flexDirection: "row",
         borderWidth: 1,
@@ -215,4 +308,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export { HSearchInput, HInput, HCheckbox };
+export { HSearchInput, HInput, HCheckbox,HDropdownInput };
