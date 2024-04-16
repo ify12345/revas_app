@@ -2,9 +2,9 @@ import React from "react";
 import { Image, TouchableOpacity } from "react-native";
 import { SafeAreaView, View, Dimensions, TextInput, Text } from "react-native";
 import styles from "./Home.styles";
-import RText from "../components/RText";
-import BackButton from "../components/BackButton";
-import RTouchableOpacity from "../components/RTouchableOpacity";
+import RText from "../../components/RText";
+import BackButton from "../../components/BackButton";
+import RTouchableOpacity from "../../components/RTouchableOpacity";
 
 const Home = ({ navigation }) => {
   const [selectedOption, setSelectedOption] = React.useState(null);
@@ -14,13 +14,13 @@ const Home = ({ navigation }) => {
       id: "1",
       text: "For buyer",
       detail: "Let us know how you want to use Revas, you can customize",
-      image: require("../assets/Images/buyer.png"),
+      image: require("../../assets/Images/buyer.png"),
     },
     {
       id: "2",
       text: "For seller",
       detail: "Let us know how you want to use Revas, you can customize",
-      image: require("../assets/Images/seller.png"),
+      image: require("../../assets/Images/seller.png"),
     },
   ];
 

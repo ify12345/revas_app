@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./Signup.style";
 import { View, SafeAreaView } from "react-native";
 import { useState } from "react";
-import BackButton from "../components/BackButton";
-import RText from "../components/RText";
-import { HCheckbox, HInput } from "../components/HForm";
-import RTouchableOpacity from "../components/RTouchableOpacity";
+import BackButton from "../../components/BackButton";
+import RText from "../../components/RText";
+import { HCheckbox, HInput } from "../../components/HForm";
+import RTouchableOpacity from "../../components/RTouchableOpacity";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const SignUp = ({ navigation }: any) => {
