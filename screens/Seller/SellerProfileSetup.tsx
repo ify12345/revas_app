@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BackButton from "../../components/BackButton";
 import RText from "../../components/RText";
@@ -16,13 +16,25 @@ import RTouchableOpacity from "../../components/RTouchableOpacity";
 
 const SellerProfileSetup = () => {
   const navigation: any = useNavigation();
+  const [selectedCountry, setSelectedCountry] = useState<{ label: string; value: string; } | undefined>(undefined);
+  const [selectedProduct, setSelectedProduct] = useState<{ label: string; value: string; } | undefined>(undefined);
+  const countries = [
+    { label: "USA", value: "USA" },
+    { label: "Canada", value: "Canada" },
+    // Add more countries as needed
+  ];
+  const products = [
+    { label: "Product 1", value: "Product 1" },
+    { label: "Product 2", value: "Product 2" },
+    // Add more products as needed
+  ];
   return (
     <SafeAreaView
       style={{
         flex: 1,
         flexDirection: "column",
         justifyContent: "space-between",
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
       }}
     >
       <View style={styles.topBar}>
@@ -56,11 +68,14 @@ const SellerProfileSetup = () => {
             label="Phone number"
             type={2}
           />
+          <HInput placeholder="Enter your Job role" label="Job role" type={2} />
+
           <HDropdownInput
-            placeholder="Country"
-            options={["Option 1", "Option 2", "Option 3"]}
-            // onChangeText={(selectedOption) => console.log(selectedOption)}
+            label={"Country"}
+            data={countries}
+            onSelect={setSelectedCountry}
           />
+
           <HInput
             placeholder="Enter your Factory Capacity in tonnes"
             label="Factory Capacity(monthly)"
@@ -69,33 +84,33 @@ const SellerProfileSetup = () => {
           <HInput placeholder="Enter your " label="Factory Capacity" type={2} />
 
           <HDropdownInput
-            placeholder="Products"
-            options={["Option 1", "Option 2", "Option 3"]}
-            // onChangeText={(selectedOption) => console.log(selectedOption)}
+            label="Products"
+            data={products}
+            onSelect={setSelectedProduct}
           />
-
         </View>
       </ScrollView>
-          <RTouchableOpacity
-            style={styles.button}
-            backgroundColor="black"
-            // disabled={disabled}
-            // onPress={handleSubmit}
-            // loading={loading}
-          >
-            <RText fontSize="14" color="white" fontWeight="semibold">
-              Sign in
-            </RText>
-          </RTouchableOpacity>
-          <View style={styles.footerContainerSignIn}>
-            <RText>Don't have an account?</RText>
-            <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-              <RText color="black" fontSize="10" fontWeight="bold">
-                Sign Up
-              </RText>
-            </TouchableOpacity>
-          </View>
 
+
+      <RTouchableOpacity
+        style={styles.button}
+        backgroundColor="black"
+        // disabled={disabled}
+        // onPress={handleSubmit}
+        // loading={loading}
+      >
+        <RText fontSize="14" color="white" fontWeight="semibold">
+          Sign in
+        </RText>
+      </RTouchableOpacity>
+      <View style={styles.footerContainerSignIn}>
+        <RText>Don't have an account?</RText>
+        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+          <RText color="black" fontSize="10" fontWeight="bold">
+            Sign Up
+          </RText>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };

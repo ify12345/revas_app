@@ -13,6 +13,8 @@ import SignUp from './screens/onboarding/SignUp';
 import Account from './screens/onboarding/Account';
 import SignIn from './screens/onboarding/SignIn';
 import SellerProfileSetup from './screens/Seller/SellerProfileSetup';
+import SellersAccount from './screens/Seller/SellersAccount';
+import { BottomTabBar } from '@react-navigation/bottom-tabs';
  
 
 const Stack = createStackNavigator();
@@ -56,14 +58,24 @@ export default function Index() {
           component={SignIn}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="SellerProfileSetup"
           component={SellerProfileSetup}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="Account"
           component={Account}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SellersDashboard"
+          component={SellersAccount}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="BottomTabNavigator"
+          component={BottomTabBar}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
