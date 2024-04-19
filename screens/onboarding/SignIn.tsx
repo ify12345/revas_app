@@ -28,7 +28,7 @@ const SignIn = () => {
   };
  
   const handleSubmit =()=>{
-    navigation.navigate('SellerProfileSetup')
+    navigation.navigate('BottomTabNavigator')
   }
   return (
     <SafeAreaView
