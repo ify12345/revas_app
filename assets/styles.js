@@ -41,6 +41,45 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  home:{
+    flexDirection:'row',
+    width: '100',
+    justifyContent:"space-between",
+    marginHorizontal: SIZES.small,
+    alignItems:'flex-start',
+  },
+  home2:{
+    flexDirection:'row',
+    width: '100',
+    justifyContent:"space-between",
+    marginHorizontal: SIZES.small,
+    alignItems:'center',
+    marginTop:SIZES.large,
+    marginBottom: 10
+  },
+  profileContainer:{
+    flexDirection: "column",
+    gap:SIZES.large,
+    paddingVertical:SIZES.large
+  },
+  profileContainer1:{
+    width:'100%',
+    flexDirection:"row",
+    justifyContent:"space-between",
+    
+
+  },
+  profileContainer2:{
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent:"center",
+    alignContent:"center"
+  },
+  userInfo:{
+    flexDirection:"column",
+    gap:5,
+    
+  }
 });
 
 export default styles;
