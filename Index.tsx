@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
 import OnboardingScreen from './screens/onboarding/OnboardingScreen';
 import Home from './screens/onboarding/Home';
 import { useState, useEffect } from 'react';
@@ -16,7 +16,11 @@ import SellerProfileSetup from './screens/Seller/SellerProfileSetup';
 import SellersAccount from './screens/Seller/SellersAccount';
 import BottomTabNavigator from './screens/Tab/BottomTabNavigator';
 import CreateListing from './screens/Seller/CreateListing';
- 
+import ItemDetailScreen from './screens/Seller/ItemDetails';
+import ProductMore from './buyer/ProductMore';
+import Home1 from './screens/Tab/Home';
+import LiveOrder from './screens/Seller/LiveOrder';
+import Verification from './screens/onboarding/Verification';
 
 const Stack = createStackNavigator();
 
@@ -39,7 +43,7 @@ export default function Index() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Onboarding"
           component={OnboardingScreen}
           options={{ headerShown: false }}
@@ -53,7 +57,12 @@ export default function Index() {
           name="SignUp"
           component={SignUp}
           options={{ headerShown: false }}
-        /> */}
+        />
+        <Stack.Screen
+          name="Verification"
+          component={Verification}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="SignIn"
           component={SignIn}
@@ -64,24 +73,30 @@ export default function Index() {
           component={SellerProfileSetup}
           options={{ headerShown: false }}
         /> */}
-        <Stack.Screen
-          name="Account"
-          component={Account}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SellersDashboard"
-          component={SellersAccount}
-          options={{ headerShown: false }}
-        />
+  
         <Stack.Screen
           name="BottomTabNavigator"
           component={BottomTabNavigator}
           options={{ headerShown: false }}
         />
+          <Stack.Screen
+          name="Home1"
+          component={Home1}
+          options={{ headerShown: false }}
+        />
+          <Stack.Screen
+          name="Product"
+          component={ProductMore}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="CreateListing"
           component={CreateListing}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="LiveOrder"
+          component={LiveOrder}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

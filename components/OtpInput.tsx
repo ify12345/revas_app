@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
-        borderColor: "#5DB400",
+        borderColor: "#D0D5DD",
         shadowColor: "#f0f0f0",
         shadowOpacity: 10,
         width: 54,
         height: 60,
         textAlign: "center",
         fontSize: 24,
-        backgroundColor: "#EDFFDA",
+        backgroundColor: "white",
         borderRadius: 6,
     },
 });

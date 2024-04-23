@@ -12,11 +12,15 @@ const Home = () => {
   const [greeting, setGreeting] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
+  const handleItemClick = (item) => {
+    navigation.navigate('ItemDetail', { item });
+  };
   const handleListing =()=>{
     setModalVisible(false);
     navigation.navigate('CreateListing')
   }
   const liveOrder =()=>{
+    setModalVisible(false);
     navigation.navigate('LiveOrder')
   }
   const marketPlace = [
@@ -104,7 +108,9 @@ const Home = () => {
               {
                 marketPlace.map((item,id)=>{
                   return(
-                    <View key={id} style={{flexDirection:"column", borderWidth:1, borderColor:"#BEC0CA",borderRadius:5, gap:5 , paddingVertical:15,paddingHorizontal:10}}>
+                    <TouchableOpacity key={id} style={{flexDirection:"column", borderWidth:1, borderColor:"#BEC0CA",borderRadius:5, gap:5 , paddingVertical:15,paddingHorizontal:10}}
+                    onPress={()=>navigation.replace("Product",{ code: item.code, title: item.topic })} 
+                    >
                     <View style={{paddingVertical:1}}>
                        <RText
                        fontSize='14'>
@@ -139,7 +145,7 @@ const Home = () => {
                           </View>
 
                       </View>
-                    </View>
+                    </TouchableOpacity>
                   )
                 })
               }

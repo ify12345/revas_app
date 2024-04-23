@@ -17,15 +17,17 @@ const SignUp = ({ navigation }: any) => {
 
   const [formData, setFormData] = React.useState({
     // user_id: "",
-    first_name: "",
-    last_name: "",
-    email: "",
+    full_name: "",
+    company_name: "",
+    role: "",
+    company_email:"",
     password: "",
+    phone:""
     // confirmPassword: "",
   });
 
   const handleSubmit = () => {
-    navigation.navigate("SignIn");
+    navigation.navigate("Verification");
   };
 
   return (
@@ -43,42 +45,66 @@ const SignUp = ({ navigation }: any) => {
           </View>
 
           <HInput
-            label="First Name"
+            label="Full Name"
             type={2}
-            placeholder="Enter first name"
+            placeholder="Enter full name"
             onChangeText={(text: any) =>
               setFormData({
                 ...formData,
-                first_name: text,
+                full_name: text,
               })
             }
-            value={formData.first_name}
+            value={formData.full_name}
+          />
+          <HInput
+            label="Company Name"
+            type={2}
+            placeholder="Enter Company name"
+            onChangeText={(text: any) =>
+              setFormData({
+                ...formData,
+                company_name: text,
+              })
+            }
+            value={formData.company_name}
+          />
+          <HInput
+            label="Role"
+            type={2}
+            placeholder="Enter your role"
+            onChangeText={(text: any) =>
+              setFormData({
+                ...formData,
+                role: text,
+              })
+            }
+            value={formData.role}
           />
 
           <HInput
-            label="Last Name"
+            label="Company Email"
             type={2}
-            placeholder="Enter last name"
+            placeholder="Enter comapny email"
             onChangeText={(text: any) =>
               setFormData({
                 ...formData,
-                last_name: text,
+                company_email: text,
               })
             }
-            value={formData.last_name}
+            value={formData.company_email}
           />
 
           <HInput
-            label="Email"
+            label="Phone number"
             type={2}
-            placeholder="Enter your email"
+            placeholder="Enter your Phone number"
             onChangeText={(text: any) =>
               setFormData({
                 ...formData,
-                email: text,
+                phone: text,
               })
             }
-            value={formData.email}
+            value={formData.phone}
           />
 
           <HInput
@@ -96,7 +122,7 @@ const SignUp = ({ navigation }: any) => {
           />
 
           <View style={styles.checkBox}>
-            <HCheckbox checked={isChecked} setChecked={handleToggleCheckbox} />
+            <HCheckbox checked={isChecked} setChecked={handleToggleCheckbox}/>
             <RText
               width="80%"
               fontSize="10"

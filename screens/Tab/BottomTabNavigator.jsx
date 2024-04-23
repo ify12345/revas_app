@@ -4,11 +4,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { height, width } from '../../assets/constants';
 import { Home, Search, Deals, Message, Profile } from './index';
 import { ChatBubbleBottomCenterIcon, HomeIcon, MagnifyingGlassIcon, ShoppingBagIcon, UserIcon } from 'react-native-heroicons/solid';
+import ItemDetailScreen from '../Seller/ItemDetails';
 
 const Tab = createBottomTabNavigator();
 const tabBarStyle = {
     padding: 20,
-    height: 80,
+    height: 90,
     position: 'absolute',
     bottom: 0,
     width,
@@ -32,17 +33,20 @@ const BottomTabNavigator = () => {
     >
         <Tab.Screen name="Home" component={Home} options={{
             tabBarStyle: tabBarStyle,
-            tabBarShowLabel: false,
+            tabBarShowLabel: true,
             headerShown: false,
             tabBarIcon: ({ focused }) => (
                 focused ?
                      <HomeIcon  size={24} color="#000"/>
                     : <HomeIcon  size={24} color="gray" />
             )
-        }} />
+        }} 
+        
+        />
+
         <Tab.Screen name="Search" component={Search} options={{
             tabBarStyle: tabBarStyle,
-            tabBarShowLabel: false,
+            tabBarShowLabel: true,
             headerShown: false,
             tabBarIcon: ({ focused }) => (
                 focused ?
@@ -52,7 +56,7 @@ const BottomTabNavigator = () => {
         }} />
         <Tab.Screen name="Deals" component={Deals} options={{
             tabBarStyle: tabBarStyle,
-            tabBarShowLabel: false,
+            tabBarShowLabel: true,
             headerShown: false,
             tabBarIcon: ({ focused }) => (
                 focused ?
@@ -62,7 +66,7 @@ const BottomTabNavigator = () => {
         }} />
         <Tab.Screen name="Message" component={Message} options={{
             tabBarStyle: tabBarStyle,
-            tabBarShowLabel: false,
+            tabBarShowLabel: true,
             headerShown: false,
             tabBarIcon: ({ focused }) => (
                 focused ?
@@ -72,7 +76,7 @@ const BottomTabNavigator = () => {
         }} />
         <Tab.Screen name="Profile" component={Profile} options={{
             tabBarStyle: tabBarStyle,
-            tabBarShowLabel: false,
+            tabBarShowLabel: true,
             headerShown: false,
             tabBarIcon: ({ focused }) => (
                 focused ?
