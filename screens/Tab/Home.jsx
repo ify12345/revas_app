@@ -187,7 +187,7 @@ const Home = () => {
             <TouchableOpacity
               style={{flexDirection:"row", alignItems:"center",position:'absolute', bottom:100,right:10}}
               onPress={() => setModalVisible(!modalVisible)}>
-              <PlusCircleIcon color='purple' size={50}/>
+              <PlusCircleIcon color='purple' size={60}/>
             </TouchableOpacity>
           </View>
         </View>
@@ -207,9 +207,9 @@ const styless = StyleSheet.create({
     flex: 1,   
   },
   modalView: {
-    flex: 1, 
-    flexDirection:"column",
-    gap:20,
-    backgroundColor:"#000",
+    flex: 1,
+    flexDirection: "column",
+    gap: 20,
+    backgroundColor: "rgba(25, 50, 105, 0.5)" 
   },
 });

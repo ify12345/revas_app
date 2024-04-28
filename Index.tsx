@@ -21,6 +21,9 @@ import ProductMore from './buyer/ProductMore';
 import Home1 from './screens/Tab/Home';
 import LiveOrder from './screens/Seller/LiveOrder';
 import Verification from './screens/onboarding/Verification';
+import ResetPassword from './screens/onboarding/ResetPassword';
+import CreateNewPassword from './screens/onboarding/CreateNewPassword';
+import ResetSuccess from './screens/onboarding/Auth/ResetSuccess';
 
 const Stack = createStackNavigator();
 
@@ -67,13 +70,28 @@ export default function Index() {
           name="SignIn"
           component={SignIn}
           options={{ headerShown: false }}
-        />
-        {/* <Stack.Screen
+        /> 
+         <Stack.Screen
           name="SellerProfileSetup"
           component={SellerProfileSetup}
           options={{ headerShown: false }}
-        /> */}
-  
+        />
+        
+        <Stack.Screen
+          name="ResetPassword"
+          component={ResetPassword}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CreateNewPassword"
+          component={CreateNewPassword}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ResetSuccess"
+          component={ResetSuccess}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="BottomTabNavigator"
           component={BottomTabNavigator}

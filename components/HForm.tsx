@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     shadowColor: "#f0f0f0",
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 5,
+    zIndex:0,
   },
   input: {
     height: 48,
@@ -175,6 +176,7 @@ const styles = StyleSheet.create({
     paddingBottom: 6,
     fontSize: RFValue(14),
     lineHeight: RFValue(20.03),
+    zIndex:0,
   },
   textInput: {
     height: 50,
@@ -187,6 +189,7 @@ const styles = StyleSheet.create({
     shadowColor: "#f0f0f0",
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 5,
+    zIndex:0,
   },
   textInput2: {
     backgroundColor: "#F0F0F0",
@@ -200,6 +203,7 @@ const styles = StyleSheet.create({
     shadowColor: "#f0f0f0",
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 5,
+    zIndex:0,
   },
   label: {
     lineHeight: 20,

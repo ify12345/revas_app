@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
   container: {
     
   
-    zIndex:30
+    zIndex:100
 
   },
   dropdown: {
     padding: 10,
     borderWidth: 1,
-   
+  
     backgroundColor: "#F0F0F0",
     height: 50, 
     flexGrow: 1,
@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
      borderWidth: 1, 
      borderColor: "#D0D5DD",
      shadowColor: "#f0f0f0",
-     shadowOpacity: 5
+     shadowOpacity: 5,
+     zIndex: 80,
   },
   label: {
     fontSize: 6,
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 5,
     marginTop: 5,
+    zIndex:80,
   },
   option: {
     padding: 10,
