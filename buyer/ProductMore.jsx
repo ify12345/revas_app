@@ -1,54 +1,57 @@
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { AntDesign } from '@expo/vector-icons';
+import RText from '../components/RText';
+import RTouchableOpacity from '../components/RTouchableOpacity';
+import { ChevronLeftIcon } from 'react-native-heroicons/solid';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ProductMore({route}) {
+    const navigation = useNavigation();
     const { code, title } = route.params;
   return (
-    <SafeAreaView style={{flex:1, flexDirection:"column",gap:8}}>
+    <SafeAreaView style={{flex:1, flexDirection:"column",gap:8,justifyContent:'space-between'}}>
         <View style={styles.container}>
+       <TouchableOpacity onPress={() => navigation.navigate('BottomTabNavigator')} >
+        <ChevronLeftIcon color={'black'}/>
+       </TouchableOpacity>
           <Text style={{fontSize:20, fontWeight:"700"}}>{title}</Text>
-          <TouchableOpacity style={{flexDirection:'row',gap:4,justifyContent:'center', alignItems:"center", borderRadius: 50, backgroundColor:"#E8DEF8",padding: 6}}>
-            <Text style={{fontSize: 10}}>{code}</Text>
-            <AntDesign name="infocirlceo" size={14} color="black" />
-         </TouchableOpacity>
-
-       
         </View>
         <Image style={{width:"90%", height:150, marginHorizontal:20}} source={require('../assets/recyclates.png')}/>
         
         <View style={styles.container2}>
-          <Text style={{fontSize:20, fontWeight:"200"}}>Types of Plastic</Text>
-          <Text style={{fontSize:20, fontWeight:"400"}}>rPET Flakes</Text>
+          <RText style={{fontSize:20, fontWeight:"200"}}>Types of Plastic</RText>
+          <RText style={{fontSize:20, fontWeight:"400"}}>rPET Flakes</RText>
         
         </View>
         <View style={styles.container2}>
-          <Text style={{fontSize:20, fontWeight:"200"}}>Volume in(Tones)</Text>
-          <Text style={{fontSize:20, fontWeight:"400"}}>500</Text>
+          <RText style={{fontSize:20, fontWeight:"200"}}>Volume in(Tones)</RText>
+          <RText style={{fontSize:20, fontWeight:"400"}}>500</RText>
         
         </View>
         <View style={styles.container2}>
-          <Text style={{fontSize:20, fontWeight:"200"}}>Duration</Text>
-          <Text style={{fontSize:20, fontWeight:"400"}}>2 weeks</Text>
+          <RText style={{fontSize:20, fontWeight:"200"}}>Duration</RText>
+          <RText style={{fontSize:20, fontWeight:"400"}}>2 weeks</RText>
         
         </View>
         <View style={styles.container2}>
-          <Text style={{fontSize:20, fontWeight:"200"}}>Price</Text>
-          <Text style={{fontSize:20, fontWeight:"400", color:"#006C1E"}}>$3,334.</Text>
+          <RText style={{fontSize:20, fontWeight:"200"}}>Price</RText>
+          <RText style={{fontSize:20, fontWeight:"400", color:"#006C1E"}}>$3,334.</RText>
         
         </View>
         <View style={styles.container2}>
-          <Text style={{fontSize:20, fontWeight:"200"}}>Location</Text>
-          <Text style={{fontSize:20, fontWeight:"400"}}>Kaduna</Text>
+          <RText style={{fontSize:20, fontWeight:"200"}}>Location</RText>
+          <RText style={{fontSize:20, fontWeight:"400"}}>Kaduna</RText>
         
         </View>
         <View style={styles.container3}>
-            <TouchableOpacity style={{backgroundColor: "black", marginHorizontal: 10 , padding: 20,marginVertical:20,width:"100%"}} >
-                    <Text style={{color: 'white', textAlign: "center"}}>Proceed to chat</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{backgroundColor:"#FFF0F0", marginHorizontal: 10 , padding: 20,width:"100%"}} >
-                    <Text style={{color: 'red', textAlign: "center"}}>Cancel</Text>
-            </TouchableOpacity>
+            <RTouchableOpacity style={{backgroundColor: "black", marginHorizontal: 10 , padding: 20,marginVertical:20,width:"100%"}} 
+            onPress={()=>navigation.navigate('Message')}>
+                    <RText style={{color: 'white', RtextAlign: "center"}}>Proceed to chat</RText>
+            </RTouchableOpacity>
+            <RTouchableOpacity style={{backgroundColor:"#FFF0F0", marginHorizontal: 10 , padding: 20,width:"100%"}} >
+                    <RText style={{color: 'red', RtextAlign: "center"}}>Cancel</RText>
+            </RTouchableOpacity>
      
         </View>
     </SafeAreaView>
@@ -59,9 +62,8 @@ const styles = StyleSheet.create({
     container:{
         flexDirection: "row",
         alignItems: "center",
-        justifyContent:"space-between",
         paddingHorizontal: 20,
-        paddingVertical: 10
+        paddingVertical:10
     },
     container2:{
         flexDirection: "row",

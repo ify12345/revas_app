@@ -18,6 +18,7 @@ import BackButton from "../../components/BackButton";
 import RText from "../../components/RText";
 import { HInput } from "../../components/HForm";
 import RTouchableOpacity from "../../components/RTouchableOpacity";
+import ImageUploadInput from "../../components/ImageUploadInput";
 
 const SignIn = () => {
   const navigation: any = useNavigation();
@@ -65,6 +66,7 @@ const SignIn = () => {
             type={2}
             textType={"password"}
           />
+          
 
           <TouchableOpacity
             style={{ justifyContent: "flex-end", flexDirection: "row" }}
@@ -100,5 +102,7 @@ const SignIn = () => {
     </SafeAreaView>
   );
 };
+
+
 
 export default SignIn;

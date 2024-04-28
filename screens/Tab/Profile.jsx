@@ -2,11 +2,13 @@ import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import RText from '../../components/RText'
-import { ChevronLeftIcon, ChevronRightIcon } from 'react-native-heroicons/solid'
+import { BuildingOfficeIcon, ChevronLeftIcon, ChevronRightIcon, CreditCardIcon, DocumentIcon, DocumentTextIcon, UserCircleIcon } from 'react-native-heroicons/solid'
 import styles from '../../assets/styles'
-import RTouchableOpacity from '../../components/RTouchableOpacity'
+import RTouchableOpacity from '../../components/RTouchableOpacity';
+import { useNavigation } from '@react-navigation/native'
 
 export default function Profile() {
+  const navigation = useNavigation();
   return (
     <SafeAreaView
     style={{
@@ -16,7 +18,7 @@ export default function Profile() {
          backgroundColor:"white"
        }}
      >
-       <View style={styles.topBar}>
+       <View style={styles.profileTopBar}>
          <RText fontSize='14'>My Account</RText>
        </View>
 
@@ -24,10 +26,10 @@ export default function Profile() {
 
           <View style={styles.profileContainer1}>
             <View style={styles.profileContainer2}>
-               <Image/>
+               <UserCircleIcon color="gray" size={30} />
                <View style={styles.userInfo}>
-                <RText fontSize='14' color='black'>Daniel Eloma</RText>
-                <RText fontSize='12' color='gray'>Profile details</RText>
+                <RText fontSize='12' color='black'>Daniel Eloma</RText>
+                <RText fontSize='10' color='gray'>Profile details</RText>
                </View>
             </View>
             <ChevronRightIcon size={15} color="black"/>
@@ -35,10 +37,10 @@ export default function Profile() {
 
           <View style={styles.profileContainer1}>
             <View style={styles.profileContainer2}>
-               <Image/>
+               <CreditCardIcon color={"green"}  size={30}/>
                <View style={styles.userInfo}>
-                <RText fontSize='14' color='black'>Bank details</RText>
-                <RText fontSize='12' color='gray'>Add/Update Bank details</RText>
+                <RText fontSize='12' color='black'>Bank details</RText>
+                <RText fontSize='10' color='gray'>Add/Update Bank details</RText>
                </View>
             </View>
             <ChevronRightIcon size={15} color="black"/>
@@ -46,10 +48,10 @@ export default function Profile() {
 
           <View style={styles.profileContainer1}>
             <View style={styles.profileContainer2}>
-               <Image/>
+               <BuildingOfficeIcon size={30} color={'blue'}/>
                <View style={styles.userInfo}>
-                <RText fontSize='14' color='black'>Manage Company</RText>
-                <RText fontSize='12' color='gray'>Company management</RText>
+                <RText fontSize='12' color='black'>Manage Company</RText>
+                <RText fontSize='10' color='gray'>Company management</RText>
                </View>
             </View>
             <ChevronRightIcon size={15} color="black"/>
@@ -57,10 +59,10 @@ export default function Profile() {
 
           <View style={styles.profileContainer1}>
             <View style={styles.profileContainer2}>
-               <Image/>
+               <DocumentTextIcon size={30}  color={'purple'}/>
                <View style={styles.userInfo}>
-                <RText fontSize='14' color='black'>Uploaded Documents</RText>
-                <RText fontSize='12' color='gray'>View uplloaded documents</RText>
+                <RText fontSize='12' color='black'>Uploaded Documents</RText>
+                <RText fontSize='10' color='gray'>View uplloaded documents</RText>
                </View>
             </View>
             <ChevronRightIcon size={15} color="black"/>
@@ -70,10 +72,16 @@ export default function Profile() {
 
 
        </View>
-        <RTouchableOpacity>
+        <RTouchableOpacity
+         backgroundColor='#'
+         onPress={()=>navigation.navigate('SignIn')}
+         >
           <RText 
           color='red'
-          >Sign out</RText>
+          >
+          Sign out
+          </RText>
+
         </RTouchableOpacity>
  
     </SafeAreaView>
