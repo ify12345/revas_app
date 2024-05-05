@@ -1,17 +1,21 @@
-import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
+import { View, SafeAreaView } from "react-native";
 import RText from "../../components/RText";
 import BackButton from "../../components/BackButton";
 import styles from "../../assets/styles";
-import { SafeAreaView } from "react-native-safe-area-context";
 import OtpInput from "../../components/OtpInput";
 import RTouchableOpacity from "../../components/RTouchableOpacity";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { verifyEmail } from "../../store/authSlice";
 
 const Verification = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const mergedOtp = otp[0] + otp[1] + otp[2] + otp[3] + otp[4] + otp[5];
+  const route = useRoute();
+  const email = route.params?.email || "";
+  const mergedOtp = otp.join("");
   const inputs: any = [];
 
   const handleChange = (value: string, index: number) => {
@@ -19,8 +23,25 @@ const Verification = () => {
     newOtp[index] = value;
     setOtp(newOtp);
     value && index < newOtp.length - 1 && inputs[index + 1].focus();
-    console.log(mergedOtp);
   };
+
+  const handleContinue = async () => {
+    try {
+      await dispatch(verifyEmail({ email: email, verificationToken: mergedOtp }));
+      // If verification succeeds, navigate to the sign-in page
+      navigation.navigate("SignIn");
+    } catch (error) {
+      // Handle verification error
+      console.error("Email verification failed:", error);
+      // You can display an error message to the user if needed
+    }
+  };
+
+  const handleContinueWithoutVerification = () => {
+    // Navigate to the sign-in page without verifying
+    navigation.navigate("SignIn");
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.topBar}>
@@ -38,31 +59,33 @@ const Verification = () => {
           </View>
           <OtpInput otp={otp} handleChange={handleChange} inputs={inputs} />
        
+          <RTouchableOpacity
+            backgroundColor="white"
+            onPress={handleContinue}
+            disabled={mergedOtp.length < 6}
+          >
+            <RText fontSize="12" fontWeight="semibold">
+              Continue
+            </RText>
+          </RTouchableOpacity>
 
-        <RTouchableOpacity
-          backgroundColor="white"
-          // onPress={sentOtp}
-          // loading={loading}
-          disabled={mergedOtp.length < 4 ? true : false}
-        >
-          <RText fontSize="12" fontWeight="semibold"
-             onPress={()=>navigation.navigate('SignIn')}>
-            Continue
-          </RText>
-        </RTouchableOpacity>
+         
 
-        <RTouchableOpacity
-
-          backgroundColor="black"
-       
-          // loading={loading}
-          // disabled={!email ? true : false}
-        >
-          <RText color="white" fontSize="12" fontWeight="semibold">
-            Resend code
-          </RText>
-        </RTouchableOpacity>
-      </View>
+          <RTouchableOpacity backgroundColor="black">
+            <RText color="white" fontSize="12" fontWeight="semibold">
+              Resend code
+            </RText>
+          </RTouchableOpacity>
+          
+          <RTouchableOpacity
+           
+           onPress={handleContinueWithoutVerification}
+         >
+           <RText color="black" fontSize="12" fontWeight="semibold">
+             Continue without verifying
+           </RText>
+         </RTouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );

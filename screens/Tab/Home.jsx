@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, Pressable, Modal, Button, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useSelector } from "react-redux"; // Import useSelector hook
 import styles from "../../assets/styles";
 import RText from "../../components/RText";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import RTouchableOpacity from "../../components/RTouchableOpacity";
 import { BellIcon, ChevronRightIcon, ClipboardDocumentListIcon, PlusCircleIcon, ShoppingCartIcon } from "react-native-heroicons/solid";
 import { ScrollView } from "react-native-gesture-handler";
@@ -12,17 +13,23 @@ const Home = () => {
   const [greeting, setGreeting] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
+  const route = useRoute(); 
+ 
+
+  // Access user info from Redux store
+  const user = useSelector((state) => state.auth.user);
+
   const handleItemClick = (item) => {
-    navigation.navigate('ItemDetail', { item });
+    // navigation.navigate('ItemDetail', { item });
   };
   const handleListing =()=>{
     setModalVisible(false);
     navigation.navigate('CreateListing')
-  }
+  };
   const liveOrder =()=>{
     setModalVisible(false);
     navigation.navigate('LiveOrder')
-  }
+  };
   const marketPlace = [
     {
       id: "1",
@@ -55,7 +62,7 @@ const Home = () => {
       code: "DQL1+"
     },
   
-  ]
+  ];
   useEffect(() => {
     // Function to determine the time of the day
     const getGreeting = () => {
@@ -80,8 +87,8 @@ const Home = () => {
       <View style={styles.home}>
         <View>
           <RText>{greeting}</RText>
-          <RText fontWeight="bold" fontSize="22" color="#4A4B4d">
-            Daniel Eloma
+          <RText fontWeight="extrabold" fontSize="22" color="#4A4B4d">
+          {user.firstname} {user.lastname}
           </RText>
         </View>
 
@@ -210,6 +217,6 @@ const styless = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     gap: 20,
-    backgroundColor: "rgba(25, 50, 105, 0.5)" 
+    backgroundColor: "rgba(105, 105, 105, 0.5)" 
   },
 });
