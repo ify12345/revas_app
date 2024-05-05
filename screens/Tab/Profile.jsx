@@ -6,9 +6,16 @@ import { BuildingOfficeIcon, ChevronLeftIcon, ChevronRightIcon, CreditCardIcon, 
 import styles from '../../assets/styles'
 import RTouchableOpacity from '../../components/RTouchableOpacity';
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function Profile() {
   const navigation = useNavigation();
+  const user = useSelector((state) => state.auth.user);
+  const handleReset =()=>{
+    navigation.navigate('ResetPassword')
+  }
+
   return (
     <SafeAreaView
     style={{
@@ -24,16 +31,17 @@ export default function Profile() {
 
        <View style={styles.profileContainer}>
 
-          <View style={styles.profileContainer1}>
+          <TouchableOpacity style={styles.profileContainer1}
+          onPress={handleReset}>
             <View style={styles.profileContainer2}>
                <UserCircleIcon color="gray" size={30} />
                <View style={styles.userInfo}>
-                <RText fontSize='12' color='black'>Daniel Eloma</RText>
+                <RText fontSize='12' color='black'>{user.firstname} {user.lastname}</RText>
                 <RText fontSize='10' color='gray'>Profile details</RText>
                </View>
             </View>
             <ChevronRightIcon size={15} color="black"/>
-          </View>
+          </TouchableOpacity>
 
           <View style={styles.profileContainer1}>
             <View style={styles.profileContainer2}>

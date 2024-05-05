@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   View,
@@ -19,18 +19,71 @@ import RText from "../../components/RText";
 import { HInput } from "../../components/HForm";
 import RTouchableOpacity from "../../components/RTouchableOpacity";
 import ImageUploadInput from "../../components/ImageUploadInput";
+import { useAppDispatch } from "../../store/hooks";
+import { loginUser } from "../../store/authSlice";
 
 const SignIn = () => {
   const navigation: any = useNavigation();
+  const dispatch = useAppDispatch();
 
   const [isChecked, setIsChecked] = useState(true);
+
+  const [inputDisabled, setInputDisabled] = useState(false);
+
+  const setCheckboxVal = (val: Boolean) => {
+     setIsChecked(!val);
+  };
+
   const handleToggleCheckbox = () => {
     setIsChecked(!isChecked);
   };
- 
-  const handleSubmit =()=>{
-    navigation.navigate('BottomTabNavigator')
+
+  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [formData, setFormData] = React.useState({
+    email: "",
+    password: "",
+});
+
+useEffect(() => {
+  if (formData.email && formData.password) {
+      setDisabled(false);
+  } else {
+      setDisabled(true);
   }
+}, [formData]);
+ 
+const handleSubmit = async () => {
+  console.log(formData);
+  try {
+      setDisabled(true);
+      setLoading(true);
+      setInputDisabled(true);
+      let res: any = await dispatch(loginUser(formData));
+      console.log("Login response:", res); // Log the response
+      let errors =
+          res.meta.rejectedWithValue === true ||
+          res.meta.requestStatus === "rejected";
+
+      if (!errors) {
+          // Ensure that res.payload contains the necessary data structure
+          if (res.payload && res.payload.firstname) {
+              navigation.navigate("BottomTabNavigator", { firstName: res.payload.firstname });
+          } else {
+              console.error("Invalid login response data:", res.payload);
+          }
+      }
+  } catch (error: any) {
+      console.error("Login error:", error);
+      setDisabled(false);
+  } finally {
+      setLoading(false);
+      setDisabled(false);
+      setInputDisabled(false);
+  }
+};
+
+
   return (
     <SafeAreaView
       style={{
@@ -54,17 +107,33 @@ const SignIn = () => {
           </View>
 
           <HInput
+          width={'100%'}
             placeholder="Enter email address"
             label="Email Address"
             type={2}
             textType={"email"}
+            onChangeText={(text: any) =>
+              setFormData({
+                  ...formData,
+                  email: text.toLowerCase(),
+              })
+          }
+          value={formData.email}
           />
 
           <HInput
+            width={'100%'}
             placeholder="Enter password"
             label="Password"
             type={2}
             textType={"password"}
+            onChangeText={(text: any) =>
+              setFormData({
+                  ...formData,
+                  password: text,
+              })
+          }
+          value={formData.password}
           />
           
 
@@ -80,9 +149,9 @@ const SignIn = () => {
           <RTouchableOpacity
             style={styles.button}
             backgroundColor="black"
-            // disabled={disabled}
+            disabled={disabled}
             onPress={handleSubmit}
-            // loading={loading}
+            loading={loading}
           >
             <RText fontSize="14" color="white" fontWeight="semibold">
               Sign in
