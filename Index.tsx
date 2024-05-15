@@ -17,27 +17,29 @@ import Account from "./screens/onboarding/Account";
 import SignIn from "./screens/onboarding/SignIn";
 import SellerProfileSetup from "./screens/Seller/SellerProfileSetup";
 import SellersAccount from "./screens/Seller/SellersAccount";
-import BottomTabNavigator from "./screens/Tab/BottomTabNavigator";
 import CreateListing from "./screens/Seller/CreateListing";
 import ItemDetailScreen from "./screens/Seller/ItemDetails";
 import ProductMore from "./buyer/ProductMore";
-import Home1 from "./screens/Tab/Home";
+import Home1 from "./screens/Tab/DashBoard";
 import LiveOrder from "./screens/Seller/LiveOrder";
 import Verification from "./screens/onboarding/Verification";
 import ResetPassword from "./screens/onboarding/ResetPassword";
 import CreateNewPassword from "./screens/onboarding/CreateNewPassword";
 import ResetSuccess from "./screens/onboarding/Auth/ResetSuccess";
 import { Provider, useSelector } from "react-redux";
-import { store } from "./store";
+import { RootState, store } from "./store";
 import Toast from "react-native-toast-message";
 import RText from "./components/RText";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import BottomTabNavigator from "./screens/Tab/BottomTabNavigator";
 
 const Stack = createStackNavigator();
 SplashScreen.preventAutoHideAsync();
 
 export default function Index() {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.isLoggedIn
+  );
   const [appIsReady, setAppIsReady] = useState(false);
 
   const [fontsLoaded] = useFonts({
@@ -72,95 +74,92 @@ export default function Index() {
   }
 
   return (
-  
-      <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-        <SafeAreaProvider>
-          <NavigationContainer fallback={<RText>Loading...</RText>}>
-            <Stack.Navigator>
-            {!isAuthenticated ? (
-                <>
-              <Stack.Screen
-                name="Onboarding"
-                component={OnboardingScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="SignUp"
-                component={SignUp}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Verification"
-                component={Verification}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="SignIn"
-                component={SignIn}
-                options={{ headerShown: false }}
-              />
-              </>
-              ) : (
-                <>
-              <Stack.Screen
-                name="SellerProfileSetup"
-                component={SellerProfileSetup}
-                options={{ headerShown: false }}
-              />
-
-              <Stack.Screen
-                name="ResetPassword"
-                component={ResetPassword}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="CreateNewPassword"
-                component={CreateNewPassword}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="ResetSuccess"
-                component={ResetSuccess}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="BottomTabNavigator"
-                component={BottomTabNavigator}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Home1"
-                component={Home1}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Product"
-                component={ProductMore}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="CreateListing"
-                component={CreateListing}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="LiveOrder"
-                component={LiveOrder}
-                options={{ headerShown: false }}
-              />
-              </>
-
-              )}
-            </Stack.Navigator>
-          </NavigationContainer>
-          <Toast />
-        </SafeAreaProvider>
-      </View>
+    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+  <SafeAreaProvider>
+    <NavigationContainer fallback={<RText>Loading...</RText>}>
+      <Stack.Navigator>
+        {!isAuthenticated ? (
+          <>
+            <Stack.Screen
+              name="Onboarding"
+              component={OnboardingScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Verification"
+              component={Verification}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignIn"
+              component={SignIn}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ProfileSetup"
+              component={SellerProfileSetup}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="BottomTabNavigator"
+              component={BottomTabNavigator}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ResetPassword"
+              component={ResetPassword}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="CreateNewPassword"
+              component={CreateNewPassword}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ResetSuccess"
+              component={ResetSuccess}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Home1"
+              component={Home1}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Product"
+              component={ProductMore}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="CreateListing"
+              component={CreateListing}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="LiveOrder"
+              component={LiveOrder}
+              options={{ headerShown: false }}
+            />
+          </>
+        ) : (
+          <>
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+    <Toast />
+  </SafeAreaProvider>
+</View>
 
   );
 }

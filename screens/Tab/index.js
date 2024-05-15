@@ -1,4 +1,4 @@
-import Home from "./Home";
+import Home from "./DashBoard";
 import Search from "./Search";
 import Deals from "./Deals";
 import Message from "./Message";
