@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "column",
-    marginHorizontal: SIZES.medium,
+    marginHorizontal: SIZES.small,
     marginVertical: SIZES.xLarge,
     gap: SIZES.medium,
   },

@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, Pressable, Modal, Button, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useSelector } from "react-redux"; // Import useSelector hook
+
 import styles from "../../assets/styles";
 import RText from "../../components/RText";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import RTouchableOpacity from "../../components/RTouchableOpacity";
 import { BellIcon, ChevronRightIcon, ClipboardDocumentListIcon, PlusCircleIcon, ShoppingCartIcon } from "react-native-heroicons/solid";
 import { ScrollView } from "react-native-gesture-handler";
+import { RootState } from "../../store";
+import localStorage from "redux-persist/es/storage";
+import { useAppSelector } from "../../store/hooks";
+import { useSelector } from "react-redux";
 
-const Home = () => {
-  const [greeting, setGreeting] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
-  const navigation = useNavigation();
-  const route = useRoute(); 
+
  
 
-  // Access user info from Redux store
-  const user = useSelector((state) => state.auth.user);
-
+const DashBoard = ({navigation}:any) => {
+  const [greeting, setGreeting] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const route = useRoute(); 
+  const {user} = useSelector((state:any) => state.auth);
+  console.log(user);
+  
   const handleItemClick = (item) => {
     // navigation.navigate('ItemDetail', { item });
   };
@@ -75,7 +79,8 @@ const Home = () => {
         return "Good Evening";
       }
     };
-
+    console.log(user);
+    
     // Set the greeting message
     setGreeting(getGreeting());
   }, []);
@@ -87,9 +92,11 @@ const Home = () => {
       <View style={styles.home}>
         <View>
           <RText>{greeting}</RText>
-          <RText fontWeight="extrabold" fontSize="22" color="#4A4B4d">
-          {user.firstname} {user.lastname}
-          </RText>
+          {user && (
+            <Text>
+              {user.firstname} {user.lastname}
+            </Text>
+          )}
         </View>
 
         <RTouchableOpacity>
@@ -208,7 +215,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default DashBoard;
 const styless = StyleSheet.create({
   centeredView: {
     flex: 1,   

@@ -9,8 +9,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { verifyEmail } from "../../store/authSlice";
 
-const Verification = () => {
-  const navigation = useNavigation();
+const Verification = ({navigation}:any) => {
   const dispatch = useDispatch();
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const route = useRoute();
@@ -28,18 +27,18 @@ const Verification = () => {
   const handleContinue = async () => {
     try {
       await dispatch(verifyEmail({ email: email, verificationToken: mergedOtp }));
-      // If verification succeeds, navigate to the sign-in page
+      
       navigation.navigate("SignIn");
     } catch (error) {
-      // Handle verification error
+    
       console.error("Email verification failed:", error);
-      // You can display an error message to the user if needed
+     
     }
   };
 
   const handleContinueWithoutVerification = () => {
-    // Navigate to the sign-in page without verifying
-    navigation.navigate("SignIn");
+    
+    navigation.push("SignIn");
   };
 
   return (

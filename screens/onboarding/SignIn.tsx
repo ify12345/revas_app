@@ -1,14 +1,7 @@
 import React, { useEffect } from "react";
-
 import {
   View,
-  Text,
   SafeAreaView,
-  TextInput,
-  Picker,
-  Switch,
-  Checkbox,
-  Slider,
   TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
@@ -18,9 +11,10 @@ import BackButton from "../../components/BackButton";
 import RText from "../../components/RText";
 import { HInput } from "../../components/HForm";
 import RTouchableOpacity from "../../components/RTouchableOpacity";
-import ImageUploadInput from "../../components/ImageUploadInput";
+import ImageUploadInput from "../../components/FileUpload";
 import { useAppDispatch } from "../../store/hooks";
 import { loginUser } from "../../store/authSlice";
+
 
 const SignIn = () => {
   const navigation: any = useNavigation();
@@ -40,41 +34,34 @@ const SignIn = () => {
 
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [formData, setFormData] = React.useState({
+  const [userData, setUserData] = React.useState({
     email: "",
     password: "",
 });
 
 useEffect(() => {
-  if (formData.email && formData.password) {
+  if (userData.email && userData.password) {
       setDisabled(false);
   } else {
       setDisabled(true);
   }
-}, [formData]);
+}, [userData]);
  
 const handleSubmit = async () => {
-  console.log(formData);
+  console.log(userData);
   try {
       setDisabled(true);
       setLoading(true);
       setInputDisabled(true);
-      let res: any = await dispatch(loginUser(formData));
-      console.log("Login response:", res); // Log the response
+      let res: any = await dispatch(loginUser(userData));
       let errors =
           res.meta.rejectedWithValue === true ||
           res.meta.requestStatus === "rejected";
 
       if (!errors) {
-          // Ensure that res.payload contains the necessary data structure
-          if (res.payload && res.payload.firstname) {
-              navigation.navigate("BottomTabNavigator", { firstName: res.payload.firstname });
-          } else {
-              console.error("Invalid login response data:", res.payload);
-          }
+          navigation.navigate("BottomTabNavigator");
       }
   } catch (error: any) {
-      console.error("Login error:", error);
       setDisabled(false);
   } finally {
       setLoading(false);
@@ -113,12 +100,12 @@ const handleSubmit = async () => {
             type={2}
             textType={"email"}
             onChangeText={(text: any) =>
-              setFormData({
-                  ...formData,
+              setUserData({
+                  ...userData,
                   email: text.toLowerCase(),
               })
           }
-          value={formData.email}
+          value={userData.email}
           />
 
           <HInput
@@ -128,12 +115,12 @@ const handleSubmit = async () => {
             type={2}
             textType={"password"}
             onChangeText={(text: any) =>
-              setFormData({
-                  ...formData,
+              setUserData({
+                  ...userData,
                   password: text,
               })
           }
-          value={formData.password}
+          value={userData.password}
           />
           
 

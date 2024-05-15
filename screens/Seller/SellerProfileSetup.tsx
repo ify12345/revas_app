@@ -10,12 +10,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import BackButton from "../../components/BackButton";
 import RText from "../../components/RText";
 import styles from "../../assets/styles";
-import { HDropdownInput, HInput } from "../../components/HForm";
+import { HInput } from "../../components/HForm";
 import { useNavigation } from "@react-navigation/native";
 import RTouchableOpacity from "../../components/RTouchableOpacity";
+import RDropDown from "../../components/RDropDown";
+import FileUpload from "../../components/FileUpload";
 
-const SellerProfileSetup = () => {
-  const navigation: any = useNavigation();
+export default function SellerProfileSetup({navigation}:any){
+  
   const [selectedCountry, setSelectedCountry] = useState<{ label: string; value: string; } | undefined>(undefined);
   const [selectedProduct, setSelectedProduct] = useState<{ label: string; value: string; } | undefined>(undefined);
   const countries = [
@@ -24,17 +26,20 @@ const SellerProfileSetup = () => {
     // Add more countries as needed
   ];
   const products = [
-    { label: "Product 1", value: "Product 1" },
-    { label: "Product 2", value: "Product 2" },
+    { label: "Product 1" },
+    { label: "Product 2" },
     // Add more products as needed
   ];
+  const handleSubmit = ()=>{
+    navigation.navigate('BottomTabNavigator', {screen:"DashBoard"})
+  }
   return (
     <SafeAreaView
       style={{
         flex: 1,
         flexDirection: "column",
         justifyContent: "space-between",
-        paddingHorizontal: 10,
+        paddingHorizontal: 2,
       }}
     >
       <View style={styles.topBar}>
@@ -52,42 +57,43 @@ const SellerProfileSetup = () => {
           </View>
 
           <HInput
-            placeholder="Enter your company name"
-            label="Company name"
+          width={"100%"}
+            placeholder="Enter your country"
+            label="Country"
             type={2}
           />
           <HInput
-            placeholder="Enter your business email address"
-            label="Business email address"
-            type={2}
-            textType={"email"}
-          />
-
-          <HInput
-            placeholder="Enter your phone number"
-            label="Phone number"
+          width={"100%"}
+            placeholder="Enter factory capacity in tonnes"
+            label="Factory capacity (monthly)"
             type={2}
           />
-          <HInput placeholder="Enter your Job role" label="Job role" type={2} />
 
-          <HDropdownInput
-            label={"Country"}
-            data={countries}
-            onSelect={setSelectedCountry}
-          />
+          <View
+          style={{
+            display: 'flex',
+            flexDirection:"column",
+            gap:2
+          }}>
 
-          <HInput
-            placeholder="Enter your Factory Capacity in tonnes"
-            label="Factory Capacity(monthly)"
-            type={2}
-          />
-          <HInput placeholder="Enter your " label="Factory Capacity" type={2} />
-
-          <HDropdownInput
+           {/* <RText>Products</RText> 
+           <RDropDown         
+            options={products}
+            placeholder={"Products"}
             label="Products"
-            data={products}
-            onSelect={setSelectedProduct}
-          />
+            onSelect={setSelectedCountry}
+          />  */}
+          </View>
+         
+          <View
+          style={{
+            display: 'flex',
+            flexDirection:"column",
+            gap:2
+          }}>
+         <FileUpload/>
+         </View>
+
         </View>
       </ScrollView>
 
@@ -96,23 +102,15 @@ const SellerProfileSetup = () => {
         style={styles.button}
         backgroundColor="black"
         // disabled={disabled}
-        // onPress={handleSubmit}
+        onPress={handleSubmit}
         // loading={loading}
       >
         <RText fontSize="14" color="white" fontWeight="semibold">
-          Sign in
+          Submit
         </RText>
       </RTouchableOpacity>
-      <View style={styles.footerContainerSignIn}>
-        <RText>Don't have an account?</RText>
-        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-          <RText color="black" fontSize="10" fontWeight="bold">
-            Sign Up
-          </RText>
-        </TouchableOpacity>
-      </View>
+    
     </SafeAreaView>
   );
 };
 
-export default SellerProfileSetup;
