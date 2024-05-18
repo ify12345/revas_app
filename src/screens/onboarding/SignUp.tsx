@@ -81,7 +81,6 @@ export default function SignupOne({
       email,
       phonenumber,
       password,
-
     }
     console.log(payload);
     setLoading(true)
