@@ -85,6 +85,7 @@ export default function SignupOne({
     console.log(payload);
     setLoading(true)
     dispatch(register(payload))
+    
     .unwrap()
     .then(() => {
       setLoading(false)
