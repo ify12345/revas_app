@@ -67,7 +67,7 @@ export default function CustomButton({
     if (primary) {
       return (
         <LinearGradient
-            colors={['#856445', '#987952']}
+            colors={['#000', '#000']}
             style={[styles.button, buttonDisabledStyle, style]}
         >
           <TouchableOpacity
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 13,
+    color: "#fff"
   },
   text: {
     fontSize: 16

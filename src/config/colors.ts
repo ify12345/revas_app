@@ -1,5 +1,5 @@
 export const Colors = {
-  paleBrown: '#987952',
+  paleBrown: '#fff',
   seaShell: '#FAF5ED',
   cultured: '#F9F7F5',
   black: '#000000',
