@@ -1,19 +1,20 @@
-/* eslint-disable consistent-return */
-import Axios from "axios";
-import * as Keychain from 'react-native-keychain';
+import axios from 'axios';
 
-async function AxiosBase() {
-  let credentials = await Keychain.getGenericPassword();
-  credentials = credentials as { service: string, username: string, password: string, storage: string }
-  return Axios.create({
-    baseURL: 'https://revas-backend.onrender.com/api/',
-    headers: {
+export const config = {
+  baseURL: 'https://revas-backend.onrender.com/api/',
+};
+
+const AxiosBase = axios.create({
+  baseURL: config.baseURL,
+
+  timeout: 100000,
+  //   withCredentials: true,
+  headers: {
+    common: {
+      Accept: '*/*',
       'Content-Type': 'application/json',
-      Accept: 'appliction/json',
-      'Authorization': `Bearer ${credentials.password}`
     },
-    timeout: 200000
-  })
-}
+  },
+});
 
 export default AxiosBase;

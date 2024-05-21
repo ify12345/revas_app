@@ -45,13 +45,13 @@ export default function CustomButton({
     }
     let textColor = ''
     if (disabled) {
-      textColor = colors.onSurfaceDisabled
+      textColor = 'gray'
     } else if (primary) {
-      textColor = colors.onPrimaryContainer
+      textColor = 'white'
     } else if (isGoogleBtn) {
-      textColor = colors.onPrimaryContainer
+      textColor = 'white'
     } else {
-      textColor = colors.onSecondaryContainer
+      textColor = 'white'
     }
     return (
       <Text
@@ -67,7 +67,7 @@ export default function CustomButton({
     if (primary) {
       return (
         <LinearGradient
-            colors={['#000', '#000']}
+            colors={['#000']}
             style={[styles.button, buttonDisabledStyle, style]}
         >
           <TouchableOpacity
@@ -107,7 +107,8 @@ export default function CustomButton({
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    borderRadius: 5
+    borderRadius: 4,
+    paddingVertical: 4
   },
   content: {
     display: 'flex',
@@ -115,9 +116,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 13,
-    color: "#fff"
+    color: "white"
   },
   text: {
-    fontSize: 16
+    fontSize: 16,
+    color: "white"
   }
 })

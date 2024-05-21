@@ -14,7 +14,6 @@ interface Props extends TextInputProps {
   required?: boolean;
   password?: boolean;
   isPhoneInput?: boolean;
-  countryCodeValue?: string;
   openCountryModal?: () => void;
   selectPicker?: boolean;
   rightIcon?: ReactNode;
@@ -43,7 +42,6 @@ export default function InputField({
   required,
   password = false,
   isPhoneInput = false,
-  countryCodeValue,
   openCountryModal,
   selectPicker = false,
   rightIcon,
@@ -68,12 +66,12 @@ export default function InputField({
           variant="bodyMedium"
           style={[styles.label, { color: errorMessage ? colors.error : colors.onSurface}]}
         >
-          {label}{required && '*'}
+          {label}{required}
         </Text>
       </View>
       {
         !password && !isPhoneInput && !selectPicker && (
-          <View style={[styles.inputContainer, {borderColor: errorMessage ? colors.error : borderColor, backgroundColor: colors.surface }, inputComponentStyle]}>
+          <View style={[styles.inputContainer,]}>
             <TextInput
               onFocus={() => setBorderColor(colors.primary)}
               accessibilityLabel={label}
@@ -88,7 +86,7 @@ export default function InputField({
               autoFocus={autoFocus}
               keyboardType={keyboardType}
               placeholder={placeholder}
-              placeholderTextColor={placeholderTextColor || colors.onSurface}
+              placeholderTextColor={placeholderTextColor || Colors.onSurface}
               multiline={multiline}
               editable={editable}
               maxLength={maxLength}
@@ -98,7 +96,7 @@ export default function InputField({
       }
       {
         password && (
-          <View style={[styles.inputContainer, inputComponentStyle, {borderColor: errorMessage ? colors.error : borderColor, backgroundColor: colors.surface }]}>
+          <View style={[styles.inputContainer]}>
             <TextInput
               onFocus={() => setBorderColor(colors.primary)}
               accessibilityLabel={label}
@@ -112,7 +110,7 @@ export default function InputField({
               autoFocus={autoFocus}
               keyboardType={keyboardType}
               placeholder={placeholder}
-              placeholderTextColor={placeholderTextColor || colors.onSurface}
+              placeholderTextColor={placeholderTextColor || Colors.onSurface}
               multiline={multiline}
               editable={editable}
               maxLength={maxLength}
@@ -125,17 +123,8 @@ export default function InputField({
       }
       {
         isPhoneInput && openCountryModal && (
-          <View style={[styles.inputContainer, inputComponentStyle, {borderColor: errorMessage ? colors.error : borderColor, backgroundColor: colors.surface }]}>
+          <View style={[styles.inputContainer,]}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <TouchableOpacity
-                onPress={() => openCountryModal()}
-                style={{marginRight: 8, flexDirection: 'row', alignItems: 'center'}}
-              >
-                <Text>
-                  {countryCodeValue}
-                </Text>
-                <Entypo name='chevron-down' size={20} color={Colors.grey6} />
-              </TouchableOpacity>
               <TextInput
                 onFocus={() => setBorderColor(colors.primary)}
                 accessibilityLabel={label}
@@ -150,7 +139,7 @@ export default function InputField({
                 autoFocus={autoFocus}
                 keyboardType={keyboardType}
                 placeholder={placeholder}
-                placeholderTextColor={placeholderTextColor || colors.onSurface}
+                placeholderTextColor={placeholderTextColor || Colors.onSurface}
                 multiline={multiline}
                 editable={editable}
                 maxLength={maxLength}
@@ -204,18 +193,21 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     height: 52,
-    paddingHorizontal: 8
+    paddingHorizontal: 8,
+    borderColor: "#D0D5DD",
+    // backgroundColor: "#F0F0F0"
   },
   input: {
     width: '95%',
     height: '100%',
-    paddingVertical: 11
+    paddingVertical: 11,
+    borderColor: "black",
+    
   },
   inputText: {
-    fontFamily: 'Avenir-Regular',
     fontSize: 14,
     fontWeight: '400',
-    color: Colors.charcoal
+    color: "#BEC0CA"
   },
   errorView: {
     marginTop: 5

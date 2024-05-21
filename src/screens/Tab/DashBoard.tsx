@@ -2,25 +2,22 @@ import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, Pressable, Modal, Button, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import styles from "../../assets/styles";
-import RText from "../../components/RText";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import RTouchableOpacity from "../../components/RTouchableOpacity";
 import { BellIcon, ChevronRightIcon, ClipboardDocumentListIcon, PlusCircleIcon, ShoppingCartIcon } from "react-native-heroicons/solid";
 import { ScrollView } from "react-native-gesture-handler";
-import { RootState } from "../../store";
-import localStorage from "redux-persist/es/storage";
-import { useAppSelector } from "../../store/hooks";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "~redux/store";
+import styles from "../../assets/styles";
+import RText from "../../components/RText";
+import RTouchableOpacity from "../../components/RTouchableOpacity";
+
 
 
  
 
-const DashBoard = ({navigation}:any) => {
+export default function DashBoard({navigation}:any){
   const [greeting, setGreeting] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const route = useRoute(); 
-  const {user} = useSelector((state:any) => state.auth);
+  const user = useAppSelector((store) => store.auth)
+
   console.log(user);
   
   const handleItemClick = (item) => {
@@ -79,7 +76,7 @@ const DashBoard = ({navigation}:any) => {
         return "Good Evening";
       }
     };
-    console.log(user);
+   
     
     // Set the greeting message
     setGreeting(getGreeting());
@@ -92,11 +89,11 @@ const DashBoard = ({navigation}:any) => {
       <View style={styles.home}>
         <View>
           <RText>{greeting}</RText>
-          {user && (
+          
             <Text>
-              {user.firstname} {user.lastname}
+              {user.lastname}
             </Text>
-          )}
+
         </View>
 
         <RTouchableOpacity>
@@ -215,7 +212,6 @@ const DashBoard = ({navigation}:any) => {
   );
 };
 
-export default DashBoard;
 const styless = StyleSheet.create({
   centeredView: {
     flex: 1,   

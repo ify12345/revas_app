@@ -10,6 +10,9 @@ import { useNavigation } from "@react-navigation/native";
 import BackButton from "~components/BackButton";
 import RTouchableOpacity from "~components/RTouchableOpacity";
 import styles from "./Signup.style";
+import { useAppDispatch } from "~redux/store";
+import { login } from "~api/auth";
+import Toast from "react-native-toast-message";
 
 
 
@@ -46,20 +49,26 @@ useEffect(() => {
       setDisabled(true);
   }
 }, [userData]);
- 
+
+const dispatch = useAppDispatch()
 const handleSubmit = async () => {
  
-  try {
-      
-          navigation.navigate("BottomTabNavigator");
-     
-  } catch (error: any) {
-      setDisabled(false);
-  } finally {
-      setLoading(false);
-      setDisabled(false);
-      setInputDisabled(false);
-  }
+  setLoading(true)
+  console.log(userData);
+  
+  dispatch(login(userData))
+  .then(() => {
+    setLoading(false)
+    navigation.navigate('BottomTab')
+  })
+  .catch(err => {
+    setLoading(false)
+    console.log(err)
+    Toast.show({
+      type: 'error',
+      props: {message: err?.msg}
+    })
+  })
 };
 
 

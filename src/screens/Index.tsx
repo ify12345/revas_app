@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
+  HomeStackParamList,
   RootStackParamList,
 } from '~types/navigation';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -15,7 +16,7 @@ import {
 
 import {useIsFocused} from '@react-navigation/native';
 import {useAppDispatch, useAppSelector} from '~redux/store';
-import credentials from '~utils/keychain';
+
 import {getUser} from '~api/auth';
 
 // auth screens
@@ -27,12 +28,14 @@ import Home from './onboarding/Home';
 import Verification from './onboarding/Verification';
 import {SellerProfileSetup} from './Seller/SellerProfileSetup';
 import {OnboardingScreen} from './onboarding/OnboardingScreen';
+import ProductMore from '~buyer/ProductMore';
 
 // authenticated screens
 
 
 
 const Stack = createStackNavigator<RootStackParamList>();
+const HomeStack = createStackNavigator<HomeStackParamList>();
 const Tab = createBottomTabNavigator();
 
 
@@ -43,14 +46,27 @@ const Tab = createBottomTabNavigator();
 //   bottom: 0,
 //   width,
 // };
-
+function HomePage(){
+  return (
+    <HomeStack.Navigator
+    initialRouteName="User"
+    screenOptions={{
+      headerShown: false
+    }}
+  >
+    <HomeStack.Screen name="User" component={DashBoard} />
+    <HomeStack.Screen name="Product" component={ProductMore} />
+   
+  </HomeStack.Navigator>
+  )
+}
 function BottomTab() {
   const isFocused = useIsFocused();
   return (
     <Tab.Navigator initialRouteName="DashBoard">
       <Tab.Screen
         name="DashBoard"
-        component={DashBoard}
+        component={HomePage}
         options={{
           tabBarShowLabel: true,
           tabBarLabelStyle: {
@@ -135,15 +151,7 @@ export default function Screens() {
   const {isAuthenticated, isEmailVerified} = useAppSelector(store => store.auth);
 
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    (async () => {
-      const checkCredential = await credentials();
-      if (!checkCredential) {
-        setLoading(false);
-        dispatch(logout());
-      }
-    })();
-  }, []);
+ 
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -182,6 +190,7 @@ export default function Screens() {
             name="Verification"
             component={Verification}
           />
+           <Stack.Screen name="BottomTab" component={BottomTab} />
           {/* <Stack.Screen name="SignupTwo" component={SignupTwoScreen} /> */}
         </Stack.Group>
       )}
