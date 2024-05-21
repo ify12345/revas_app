@@ -1,209 +1,199 @@
-import {KeyboardAvoidingView, ScrollView, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
-import {RootStackScreenProps} from '~types/navigation';
-import {useTranslation} from 'react-i18next';
-import {Formik} from 'formik';
-import InputField from '~components/InputField';
-import * as yup from 'yup';
-import {useAppDispatch} from '~redux/store';
-import {getUserDetails} from '~redux/reducers/auth';
-import {RegisterPayload} from '~types/api';
-import {SignupOneInput} from '~types/forms';
-import SafeAreaScreen from '~components/SafeAreaScreen';
+import { useAppDispatch } from "~redux/store";
+import { register } from "~api/auth";
+import { View, SafeAreaView } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import React, { useState, useEffect } from "react";
+import Toast from "react-native-toast-message";
+import { RootStackScreenProps } from "~types/navigation";
+import styles from "./Signup.style";
+import BackButton from "../../components/BackButton";
+import RText from "../../components/RText";
+import { HCheckbox, HInput } from "../../components/HForm";
+import RTouchableOpacity from "../../components/RTouchableOpacity";
 
-import BackButton from '~components/BackButton';
-import RText from '~components/RText';
-import {HCheckbox} from '~components/HForm';
-import CustomButton from '~components/CustomButton';
-import Toast from 'react-native-toast-message';
-import {register} from '~api/auth';
-import styles from './Signup.style';
-
-export default function SignupOne({navigation}: RootStackScreenProps<'SignupOne'>) {
-  const {t} = useTranslation(['signup', 'login', 'onboard']);
+export default function SignUp({ navigation }: RootStackScreenProps<'SignupOne'>) {
   const [isChecked, setIsChecked] = useState(false);
-  const [countryModalVisible, setCountryModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
-  const handleToggleCheckbox = () => {
-    setIsChecked(!isChecked);
+  const handleToggleCheckbox = (val: Boolean) => {
+    setIsChecked(!val);
   };
 
-  const signupOneValidationSchema = yup.object().shape({
-    name: yup
-      .string()
-      .matches(/(\w.+\s).+/, t('required_two_name'))
-      .required(t('required_name')),
-    business_name: yup.string().required(t('required_business_name')),
-    email: yup
-      .string()
-      .email(t('valid_email', {ns: 'login'}))
-      .trim()
-      .required(t('required_email', {ns: 'login'})),
-    phonenumber: yup.string().required(t('required_phone')),
-    password: yup
-      .string()
-      // .matches(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W])(?!.*\s).{8,}$/, t('valid_password'))
-      .required(t('required_password', {ns: 'login'})),
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    phonenumber: ""
   });
 
-  function toggleCountryModal() {
-    setCountryModalVisible(!countryModalVisible);
-  }
+  useEffect(() => {
+    setDisabled(
+      !(
+        formData.firstname &&
+        formData.lastname &&
+        formData.email &&
+        formData.password &&
+        formData.phonenumber &&
+        isChecked
+      )
+    );
+  }, [formData, isChecked]);
 
   const dispatch = useAppDispatch();
-  function submit({name,email, password, phonenumber}: SignupOneInput) {
-    const splittedNames = name.split(' ');
-    const payload: RegisterPayload = {
-      firstname: splittedNames[0],
-      lastname: splittedNames[1],
-      email,
-      phonenumber,
-      password,
-    };
-    console.log(payload);
+
+  const handleSubmit = () => {
+    setDisabled(true);
     setLoading(true);
-    dispatch(register(payload))
-      .unwrap()
+    console.log("Form Data:", formData);
+
+    dispatch(register(formData))
       .then(() => {
-        setLoading(false);
-        navigation.navigate('AccountVerification');
-      })
-      .catch(err => {
-        setLoading(false);
-        console.log(err);
-        
         Toast.show({
-          type: 'error',
-          props: {message: err?.msg},
+          type: "success",
+          text1: "You have successfully signed up",
+          text2: "Please login to continue"
         });
+        navigation.navigate("Verification");
+      })
+      .catch((error) => {
+        console.error("Error occurred during signup:", error);
+
+        let errorMessage;
+        if (error.response) {
+          console.error("Response data:", error.response.data);
+          errorMessage = error.response.data.message || "An unexpected error occurred";
+        } else if (error.request) {
+          console.error("Request data:", error.request);
+          errorMessage = "No response received from server. Please try again.";
+        } else {
+          console.error("Error message:", error.message);
+          errorMessage = error.message;
+        }
+
+        Toast.show({
+          type: "error",
+          text1: "Signup failed",
+          text2: errorMessage
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+        setDisabled(false);
       });
-  }
+  };
 
   return (
-    <SafeAreaScreen
-      style={{
-        flex: 1,
-        flexDirection: 'column',
-        height: '100%',
-      }}>
-      <View style={styles.topBar}>
-        <BackButton />
-        <RText>Back</RText>
-      </View>
-      <View>
-        <View style={styles.started}>
-          <RText>Sign up for free</RText>
-          <RText fontSize="20">Get Started</RText>
+    <SafeAreaView style={{ flex: 1, flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.topBar}>
+          <BackButton />
+          <RText>Back</RText>
         </View>
 
-        <KeyboardAvoidingView behavior="height">
-          <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
-            <View>
-              <Formik
-                validationSchema={signupOneValidationSchema}
-                initialValues={{
-                  name: '',
-                  business_name: '',
-                  email: '',
-                  phonenumber: '',
-                  password: '',
-                }}
-                onSubmit={values => submit(values)}>
-                {({touched, handleChange, handleSubmit, errors, isValid}) => (
-                  <>
-                    <InputField
-                      required
-                      label={t('Full Name')}
-                      error={touched.name && errors.name}
-                      errorMessage={errors.name}
-                      onChangeText={handleChange('name')}
-                      autoCapitalize="words"
-                      autoComplete="name"
-                      autoCorrect={false}
-                      placeholder={`${t('e.g')} ${t('placeholder_name')}`}
-                    />
-                    <InputField
-                      required
-                      label={t('Company Name')}
-                      error={touched.business_name && errors.business_name}
-                      errorMessage={errors.business_name}
-                      onChangeText={handleChange('business_name')}
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      placeholder={`${t('e.g')} ${t('placeholder_business_name')}`}
-                    />
-
-                    <InputField
-                      required
-                      label={t('Company Email', {ns: 'login'})}
-                      keyboardType="email-address"
-                      error={touched.email && errors.email}
-                      errorMessage={errors.email}
-                      onChangeText={handleChange('email')}
-                      autoCapitalize="none"
-                      autoComplete="email"
-                      autoCorrect={false}
-                      placeholder={t('placeholder_email', {ns: 'login'})}
-                    />
-                    <InputField
-                      isPhoneInput
-                      required
-                      label={t('Phone Number')}
-                      keyboardType="phone-pad"
-                      error={touched.phonenumber && errors.phonenumber}
-                      errorMessage={errors.phonenumber}
-                      onChangeText={handleChange('phonenumber')}
-                      autoComplete="tel"
-                      placeholder={t('placeholder_phone')}
-                      openCountryModal={() => toggleCountryModal()}
-                    />
-                    <InputField
-                      password
-                      required
-                      label={t('Password')}
-                      error={touched.password && errors.password}
-                      errorMessage={errors.password}
-                      onChangeText={handleChange('password')}
-                      autoCapitalize="none"
-                      placeholder={t('placeholder_password')}
-                    />
-                    <View style={styles.checkBox}>
-                      <HCheckbox
-                        checked={isChecked}
-                        setChecked={handleToggleCheckbox}
-                        label={
-                          <RText width="80%" fontSize="10" fontWeight="medium" color="#777777">
-                            I have read and accept the companys Terms & Conditions and Privacy
-                            Policy.
-                          </RText>
-                        }
-                      />
-                      <RText width="80%" fontSize="10" fontWeight="medium" color="#777777">
-                        I have read and accept the companys Terms & Conditions and Privacy Policy.
-                      </RText>
-                    </View>
-                    <CustomButton
-                      primary
-                      title={t('Create an account')}
-                      onPress={() => handleSubmit()}
-                      disabled={!isValid}
-                    />
-                    <View style={styles.footerContainer}>
-                      <RText>Already have an account?</RText>
-                      <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                        <RText color="black" fontSize="10" fontWeight="medium">
-                          Sign In
-                        </RText>
-                      </TouchableOpacity>
-                    </View>
-                  </>
-                )}
-              </Formik>
+        <View style={styles.container1}>
+          <View style={styles.container}>
+            <View style={styles.started}>
+              <RText>Sign up for free</RText>
+              <RText fontSize="20">Get Started</RText>
             </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </View>
-    </SafeAreaScreen>
+
+            <HInput
+              label="Full Name"
+              type={2}
+              width='100%'
+              placeholder="Enter full name"
+              onChangeText={(text: any) =>
+                setFormData({
+                  ...formData,
+                  firstname: text,
+                })
+              }
+              value={formData.firstname}
+            />
+            <HInput
+              width='100%'
+              label="Company Name"
+              type={2}
+              placeholder="Enter Company name"
+              onChangeText={(text: any) =>
+                setFormData({
+                  ...formData,
+                  lastname: text,
+                })
+              }
+              value={formData.lastname}
+            />
+            <HInput
+              label="Company Email"
+              width='100%'
+              type={2}
+              placeholder="Enter company email"
+              onChangeText={(text: any) =>
+                setFormData({
+                  ...formData,
+                  email: text.toLowerCase(),
+                })
+              }
+              value={formData.email}
+            />
+            <HInput
+              width='100%'
+              label="Phone number"
+              type={2}
+              placeholder="Enter your Phone number"
+              onChangeText={(text: any) =>
+                setFormData({
+                  ...formData,
+                  phonenumber: text,
+                })
+              }
+              value={formData.phonenumber}
+            />
+            <HInput
+              label="Password"
+              width='100%'
+              type={2}
+              textType="password"
+              placeholder="Enter your password"
+              onChangeText={(text: any) =>
+                setFormData({
+                  ...formData,
+                  password: text,
+                })
+              }
+              value={formData.password}
+            />
+
+            <View style={styles.checkBox}>
+              <HCheckbox checked={isChecked} setChecked={handleToggleCheckbox} />
+              <RText width="80%" fontSize="10" fontWeight="medium" color="#777777">
+                I have read and accept the company’s Terms & Conditions and Privacy Policy.
+              </RText>
+            </View>
+
+            <RTouchableOpacity
+              backgroundColor="black"
+              disabled={disabled}
+              onPress={handleSubmit}
+              loading={loading}
+              style={styles.button}
+            >
+              <RText color="white">Create an account</RText>
+            </RTouchableOpacity>
+          </View>
+
+          <View style={styles.footerContainer}>
+            <RText>Already have an account?</RText>
+            <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+              <RText color="black" fontSize="10" fontWeight="medium">
+                Sign In
+              </RText>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
-}
+};

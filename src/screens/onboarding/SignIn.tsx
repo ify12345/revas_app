@@ -57,9 +57,9 @@ const handleSubmit = async () => {
   console.log(userData);
   
   dispatch(login(userData))
-  .unwrap()
   .then(() => {
     setLoading(false)
+    navigation.navigate('BottomTab')
   })
   .catch(err => {
     setLoading(false)

@@ -78,48 +78,14 @@ export interface Language {
 export type Service = 'home_service' | 'walk_in'
 
 export interface User {
-  id?: number
-  outletId?: number
-  businessName?: string | null
-  firstName?: string
-  lastName?: string
-  fullName?: string
-  email?: string
-  password?: string
-  phone?: string
-  about?: string;
-  website?: string
-  streetAddress1?: string
-  streetAddress2?: null | string
-  city?: string
-  countryId?: number
-  zipCode?: string
-  hasVerifiedEmail?: boolean
-  profilePhotoUrl?: string
-  state?: null | string
-  country?: {
-    countryName: string
-    countryId: number
-    countryCode: string
-    countryDialCode: string
-  }
-  doesHomeService?: boolean
-  outlet?: Outlet
-  jobTitle?: null | string
-  roles?: Role[]
-}
-
-export type Outlet = {
-  id: number;
-  outletName: string;
-  outletSlug: string;
-  outletEmail: string;
-  outletPhone: string;
-  bankId: number | null;
-  bankName: string | null;
-  bankRoutingNumber: string | null;
-  bankAccountNumber: string | null;
-  bankAccountName: string | null
+  id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  phonenumber: string;
+  updatedat: string;
+  createdat: string;
+  emailverified: boolean;
 }
 
 export interface Earning {

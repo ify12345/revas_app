@@ -12,62 +12,67 @@ interface State {
 }
 
 const initialState: State = {
-  user: {},
+  user: {
+    id: '',
+    firstname: '',
+    lastname: '',
+    email: '',
+    phonenumber: '',
+    updatedat: '',
+    createdat: '',
+    emailverified: false
+  },
   isAuthenticated: false,
   isEmailVerified: false
+};
+interface RegisterResponse {
+  user: User;
 }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    getUserDetails: (state, actions: PayloadAction<User>) => {
-      state.user = {...state.user, ...actions.payload}
+    getUserDetails: (state, action: PayloadAction<User>) => {
+      state.user = { ...state.user, ...action.payload };
     },
     success: (state) => {
-      state.isEmailVerified = true
+      state.isEmailVerified = true;
     },
-    logout: () => ({...initialState})
+    logout: () => ({ ...initialState })
   },
   extraReducers(builder) {
     builder
-      .addCase(getUser.fulfilled, (state, {payload}) => {
-        state.user = payload.data.profile
-        state.isAuthenticated = true
-        state.isEmailVerified = payload.data.profile.hasVerifiedEmail
+      // Handle registration fulfilled action
+      .addCase(register.fulfilled, (state, { payload }: PayloadAction<RegisterResponse>) => {
+        console.log('payloadsheet', payload.user);
+        const { id, firstname, lastname, email, phonenumber, updatedat, createdat, emailverified } = payload.user;
+        state.user = { id, firstname, lastname, email, phonenumber, updatedat, createdat, emailverified };
+        state.isAuthenticated = true;
+        state.isEmailVerified = emailverified;
       })
-    builder
-      .addCase(register.fulfilled, (state, {payload}) => {
-        state.user = payload.data.profile
-        state.isAuthenticated = true
-        state.isEmailVerified = payload.data.profile.hasVerifiedEmail
+      // Handle login fulfilled action
+      .addCase(login.fulfilled, (state, { payload }) => {
+        console.log('payloadsheet', payload.user);
+        state.user = payload.data.profile; // Check payload structure
+        state.isAuthenticated = true;
+        state.isEmailVerified = payload.data.profile.emailverified; // Adjust if necessary
+      })
+      // Handle continueWithGoogle fulfilled action
+      .addCase(continueWithGoogle.fulfilled, (state, { payload }) => {
+        state.user = payload.data.profile; // Check payload structure
+        state.isAuthenticated = true;
+        state.isEmailVerified = payload.data.profile.emailverified; // Adjust if necessary
+      })
+      // Handle updateProfile and updateProfilePhoto fulfilled actions
+      .addCase(updateProfile.fulfilled, (state, { payload }) => {
+        state.user = payload.data; // Check payload structure
+      })
+      .addCase(updateProfilePhoto.fulfilled, (state, { payload }) => {
+        state.user = payload.data; // Check payload structure
       });
-    builder
-      .addCase(login.pending, state => {
-        state.isAuthenticated = false
-        state.isEmailVerified = false
-      })
-      .addCase(login.fulfilled, (state, {payload}) => {
-        state.user = payload.data.profile
-        state.isAuthenticated = true
-        state.isEmailVerified = payload.data.profile.hasVerifiedEmail
-      })
-    builder
-      .addCase(continueWithGoogle.fulfilled, (state, {payload}) => {
-        state.user = payload.data.profile
-        state.isAuthenticated = true
-        state.isEmailVerified = payload.data.profile.hasVerifiedEmail
-      })
-    builder
-      .addCase(updateProfile.fulfilled, (state, {payload}) => {
-        state.user = payload.data
-      })
-    builder
-      .addCase(updateProfilePhoto.fulfilled, (state, {payload}) => {
-        state.user = payload.data
-      })
   },
-})
+});
 
 export const {getUserDetails, success, logout} = authSlice.actions
 export default authSlice.reducer

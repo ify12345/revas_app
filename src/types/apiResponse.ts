@@ -8,31 +8,14 @@ export interface GetCountries {
 }
 
 export interface Profile {
-  id: number
-  jobTitle: null | string
-  businessName: string | null
-  firstName: string
-  lastName: string
-  fullName: string
-  email: string
-  phone: string
-  streetAddress1: string
-  streetAddress2: null | string
-  city: string
-  countryId: number
-  zipCode: string
+  firstName?: string
+  lastname?: string
+  email?: string
+  password?: string
+  phonenumber?: string
+  roles?: Role[]
   hasVerifiedEmail: boolean
-  profilePhotoUrl: string
-  state: null | string
-  country: {
-    countryName: string
-    countryId: number
-    countryCode: string
-    countryDialCode: string
-  }
-  doesHomeService: boolean
-  outlet: Outlet
-  roles: Role[]
+ 
 }
 
 export enum Role {
@@ -44,11 +27,19 @@ export enum Role {
 
 export interface RegisterResponse {
   data: {
-    profile: Profile
-    token: string
-  },
-  message: string;
+    profile: {
+      id: string;
+      firstname: string;
+      lastname: string;
+      email: string;
+      phonenumber: string;
+      updatedat: string;
+      createdat: string;
+      emailverified: boolean;
+    };
+  };
 }
+
 
 export interface LoginResponse {
   message: string

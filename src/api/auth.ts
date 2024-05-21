@@ -12,6 +12,8 @@ export const getCountries = createAsyncThunk<GetCountries, void, AsyncThunkConfi
 						return apiRequest(Axios.get('/v1/onboarding/countries'), thunkAPI)
 				}
 		)
+
+		
 export const register = createAsyncThunk<RegisterResponse, RegisterPayload, AsyncThunkConfig>
 		("auth/signup",
 				async (payload, thunkAPI) => {

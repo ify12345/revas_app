@@ -1,10 +1,10 @@
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { ChevronLeftIcon } from 'react-native-heroicons/solid';
 import RText from '../components/RText';
 import RTouchableOpacity from '../components/RTouchableOpacity';
-import { ChevronLeftIcon } from 'react-native-heroicons/solid';
-import { useNavigation } from '@react-navigation/native';
 
 export default function ProductMore({route}) {
     const navigation = useNavigation();
@@ -12,7 +12,7 @@ export default function ProductMore({route}) {
   return (
     <SafeAreaView style={{flex:1, flexDirection:"column",gap:8,justifyContent:'space-between'}}>
         <View style={styles.container}>
-       <TouchableOpacity onPress={() => navigation.navigate('BottomTabNavigator')} >
+       <TouchableOpacity onPress={() => navigation.navigate('DashBoard')} >
         <ChevronLeftIcon color={'black'}/>
        </TouchableOpacity>
           <Text style={{fontSize:20, fontWeight:"700"}}>{title}</Text>

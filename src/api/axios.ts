@@ -1,17 +1,20 @@
+import axios from 'axios';
 
-import Axios from "axios";
+export const config = {
+  baseURL: 'https://revas-backend.onrender.com/api/',
+};
 
+const AxiosBase = axios.create({
+  baseURL: config.baseURL,
 
-async function AxiosBase() {
- 
-  return Axios.create({
-    baseURL: 'https://revas-backend.onrender.com/api/',
-    headers: {
+  timeout: 100000,
+  //   withCredentials: true,
+  headers: {
+    common: {
+      Accept: '*/*',
       'Content-Type': 'application/json',
-      Accept: 'appliction/json',
     },
-    timeout: 200000
-  })
-}
+  },
+});
 
 export default AxiosBase;
