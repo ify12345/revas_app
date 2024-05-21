@@ -1,7 +1,7 @@
 export const Colors = {
   paleBrown: '#fff',
   seaShell: '#FAF5ED',
-  cultured: '#F9F7F5',
+  cultured: '#D0D5DD',
   black: '#000000',
   charcoal: '#333A54',
   romanSilver: '#808494',

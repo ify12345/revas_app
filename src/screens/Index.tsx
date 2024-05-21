@@ -15,7 +15,7 @@ import {
 
 import {useIsFocused} from '@react-navigation/native';
 import {useAppDispatch, useAppSelector} from '~redux/store';
-import credentials from '~utils/keychain';
+
 import {getUser} from '~api/auth';
 
 // auth screens
@@ -135,15 +135,7 @@ export default function Screens() {
   const {isAuthenticated, isEmailVerified} = useAppSelector(store => store.auth);
 
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    (async () => {
-      const checkCredential = await credentials();
-      if (!checkCredential) {
-        setLoading(false);
-        dispatch(logout());
-      }
-    })();
-  }, []);
+ 
 
   useEffect(() => {
     if (isAuthenticated) {

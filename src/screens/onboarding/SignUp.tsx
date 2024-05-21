@@ -5,7 +5,6 @@ import {useTranslation} from 'react-i18next';
 import {Formik} from 'formik';
 import InputField from '~components/InputField';
 import * as yup from 'yup';
-import {Country} from '~types';
 import {useAppDispatch} from '~redux/store';
 import {getUserDetails} from '~redux/reducers/auth';
 import {RegisterPayload} from '~types/api';
@@ -53,7 +52,7 @@ export default function SignupOne({navigation}: RootStackScreenProps<'SignupOne'
   }
 
   const dispatch = useAppDispatch();
-  function submit({name, business_name, email, password, phonenumber}: SignupOneInput) {
+  function submit({name,email, password, phonenumber}: SignupOneInput) {
     const splittedNames = name.split(' ');
     const payload: RegisterPayload = {
       firstname: splittedNames[0],
@@ -72,6 +71,8 @@ export default function SignupOne({navigation}: RootStackScreenProps<'SignupOne'
       })
       .catch(err => {
         setLoading(false);
+        console.log(err);
+        
         Toast.show({
           type: 'error',
           props: {message: err?.msg},
@@ -105,7 +106,7 @@ export default function SignupOne({navigation}: RootStackScreenProps<'SignupOne'
                   name: '',
                   business_name: '',
                   email: '',
-                  phone: '',
+                  phonenumber: '',
                   password: '',
                 }}
                 onSubmit={values => submit(values)}>
@@ -113,7 +114,7 @@ export default function SignupOne({navigation}: RootStackScreenProps<'SignupOne'
                   <>
                     <InputField
                       required
-                      label={t('your_name')}
+                      label={t('Full Name')}
                       error={touched.name && errors.name}
                       errorMessage={errors.name}
                       onChangeText={handleChange('name')}
@@ -124,7 +125,7 @@ export default function SignupOne({navigation}: RootStackScreenProps<'SignupOne'
                     />
                     <InputField
                       required
-                      label={t('business_name')}
+                      label={t('Company Name')}
                       error={touched.business_name && errors.business_name}
                       errorMessage={errors.business_name}
                       onChangeText={handleChange('business_name')}
@@ -135,7 +136,7 @@ export default function SignupOne({navigation}: RootStackScreenProps<'SignupOne'
 
                     <InputField
                       required
-                      label={t('email_address', {ns: 'login'})}
+                      label={t('Company Email', {ns: 'login'})}
                       keyboardType="email-address"
                       error={touched.email && errors.email}
                       errorMessage={errors.email}
@@ -148,10 +149,10 @@ export default function SignupOne({navigation}: RootStackScreenProps<'SignupOne'
                     <InputField
                       isPhoneInput
                       required
-                      label={t('phone_number')}
+                      label={t('Phone Number')}
                       keyboardType="phone-pad"
-                      error={touched.phone && errors.phone}
-                      errorMessage={errors.phone}
+                      error={touched.phonenumber && errors.phonenumber}
+                      errorMessage={errors.phonenumber}
                       onChangeText={handleChange('phonenumber')}
                       autoComplete="tel"
                       placeholder={t('placeholder_phone')}
@@ -160,7 +161,7 @@ export default function SignupOne({navigation}: RootStackScreenProps<'SignupOne'
                     <InputField
                       password
                       required
-                      label={t('password')}
+                      label={t('Password')}
                       error={touched.password && errors.password}
                       errorMessage={errors.password}
                       onChangeText={handleChange('password')}

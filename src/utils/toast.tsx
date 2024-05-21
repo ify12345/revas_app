@@ -21,12 +21,12 @@ const toastConfig = {
       <View style={styles.details}>
         {
           props.title && (
-            <Text variant="bodyLarge" style={[{color: Colors.black}]}>
+            <Text variant="bodyLarge" style={{color: "black"}}>
               {props.title}
             </Text>
           )
         }
-        <Text variant="titleLarge" style={[{color: Colors.romanSilver}]}>
+        <Text variant="titleLarge" style={{color: "black"}}>
           {props.message}
         </Text>
       </View>
@@ -40,12 +40,12 @@ const toastConfig = {
       <View style={styles.details}>
         {
           props.title && (
-            <Text variant="bodyLarge" style={[{color: Colors.black}]}>
+            <Text variant="bodyLarge" style={{color: "black"}}>
               {props.title}
             </Text>
           )
         }
-        <Text variant="titleLarge" style={[{color: Colors.romanSilver}]}>
+        <Text variant="titleLarge" style={{color: "black"}}>
           {props.message}
         </Text>
       </View>
