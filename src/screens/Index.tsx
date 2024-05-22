@@ -29,6 +29,7 @@ import Verification from './onboarding/Verification';
 import {SellerProfileSetup} from './Seller/SellerProfileSetup';
 import {OnboardingScreen} from './onboarding/OnboardingScreen';
 import ProductMore from '~buyer/ProductMore';
+import CreateListing from './Seller/CreateListing';
 
 // authenticated screens
 
@@ -56,6 +57,7 @@ function HomePage(){
   >
     <HomeStack.Screen name="User" component={DashBoard} />
     <HomeStack.Screen name="Product" component={ProductMore} />
+    <HomeStack.Screen name="Listing" component={CreateListing} />
    
   </HomeStack.Navigator>
   )
@@ -181,7 +183,7 @@ export default function Screens() {
       }}>
       {!isAuthenticated && (
         <Stack.Group>
-          <Stack.Screen name="Onboard" component={OnboardingScreen} />
+          {/* <Stack.Screen name="Onboard" component={OnboardingScreen} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignupOne" component={SignUp} />
@@ -189,7 +191,7 @@ export default function Screens() {
             options={{gestureEnabled: false}}
             name="Verification"
             component={Verification}
-          />
+          /> */}
            <Stack.Screen name="BottomTab" component={BottomTab} />
           {/* <Stack.Screen name="SignupTwo" component={SignupTwoScreen} /> */}
         </Stack.Group>
