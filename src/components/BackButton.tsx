@@ -5,8 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import ChevronLeftIcon from '../assets/icons/ChevronLeftIcon';
 
 
-const BackButton = () => {
- const navigation = useNavigation()
+export default function BackButton({navigation}){
   return (
     <TouchableOpacity
             onPress={() => navigation.goBack()}
@@ -17,7 +16,6 @@ const BackButton = () => {
   )
 }
 
-export default BackButton
 
 const styles = StyleSheet.create({
     back:{

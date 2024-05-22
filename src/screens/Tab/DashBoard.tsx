@@ -8,6 +8,7 @@ import { useAppSelector } from "~redux/store";
 import styles from "../../assets/styles";
 import RText from "../../components/RText";
 import RTouchableOpacity from "../../components/RTouchableOpacity";
+import CloseSvg from "~assets/svg/CloseSvg";
 
 
 
@@ -19,14 +20,16 @@ export default function DashBoard({navigation}:any){
   const user = useAppSelector((store) => store.auth)
 
   console.log(user);
-  
-  const handleItemClick = (item) => {
-    // navigation.navigate('ItemDetail', { item });
-  };
+
   const handleListing =()=>{
     setModalVisible(false);
-    navigation.navigate('CreateListing')
+    navigation.navigate('Listing')
   };
+
+  function handleClose() {
+    setModalVisible(!modalVisible)
+  }
+
   const liveOrder =()=>{
     setModalVisible(false);
     navigation.navigate('LiveOrder')
@@ -34,7 +37,7 @@ export default function DashBoard({navigation}:any){
   const marketPlace = [
     {
       id: "1",
-      image: require("../..//assets/recycle.png"),
+      image: require("~assets/recycle.png"),
       topic: "Plastic Recycling Waste",
       types: "Recyclates",
       volume: "Recyclates",
@@ -44,7 +47,7 @@ export default function DashBoard({navigation}:any){
     },
     {
       id: "2",
-      image: require("../../assets/recycle.png"),
+      image: require("~assets/recycle.png"),
       topic: "Plastic Recycling Waste",
       types: "Recyclates",
       volume: "Recyclates",
@@ -54,7 +57,7 @@ export default function DashBoard({navigation}:any){
     },
     {
       id: "3",
-      image: require("../../assets/recycle.png"),
+      image: require("~assets/recycle.png"),
       topic: "Plastic Recycling Waste",
       types: "Recyclates",
       volume: "Recyclates",
@@ -82,6 +85,22 @@ export default function DashBoard({navigation}:any){
     setGreeting(getGreeting());
   }, []);
 
+  const styless = StyleSheet.create({
+    centeredView: {
+      flex: 1,   
+    },
+    modalView: {
+      flex: 1,
+      flexDirection: "column",
+      gap: 20,
+      backgroundColor: "rgba(105, 105, 105, 0.5)" 
+    },
+    btn: {
+    
+      marginVertical: 100,
+      marginHorizontal: 20
+    },
+  });
   return (
     <SafeAreaView
       style={{ backgroundColor: "#FFF",flex:1,  paddingHorizontal: 10 }}
@@ -90,9 +109,9 @@ export default function DashBoard({navigation}:any){
         <View>
           <RText>{greeting}</RText>
           
-            <Text>
+            {/* <Text>
               {user.lastname}
-            </Text>
+            </Text> */}
 
         </View>
 
@@ -164,17 +183,24 @@ export default function DashBoard({navigation}:any){
 
       </ScrollView>
        
-      <View style={styless.centeredView}>
+        <Pressable style={{position:'absolute', bottom:0,right:10}}  onPress={() => setModalVisible(true)}>
+          <PlusCircleIcon color='purple' size={60}/>
+        </Pressable>
       <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
+        animationType="slide"
+        transparent
+        visible={modalVisible}>
         <View style={styless.centeredView}>
           <View style={styless.modalView}>
+        <TouchableOpacity
+            onPress={() => handleClose()}
+            hitSlop={20}
+            style={styless.btn}
+          
+          >
+            <RText
+            color="blue">Cancel</RText>
+          </TouchableOpacity>
             <TouchableOpacity
               onPress={handleListing}
              style={{flexDirection:"row", alignItems:"center",position:'absolute', bottom:200,right:20,gap:4}}>
@@ -195,31 +221,11 @@ export default function DashBoard({navigation}:any){
               <ShoppingCartIcon color='white' size={30}/>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={{flexDirection:"row", alignItems:"center",position:'absolute', bottom:100,right:10}}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <PlusCircleIcon color='purple' size={60}/>
-            </TouchableOpacity>
           </View>
         </View>
       </Modal>
-
-    </View>
-        <Pressable style={{position:'absolute', bottom:100,right:10}}  onPress={() => setModalVisible(true)}>
-          <PlusCircleIcon color='purple' size={60}/>
-        </Pressable>
     </SafeAreaView>
   );
 };
 
-const styless = StyleSheet.create({
-  centeredView: {
-    flex: 1,   
-  },
-  modalView: {
-    flex: 1,
-    flexDirection: "column",
-    gap: 20,
-    backgroundColor: "rgba(105, 105, 105, 0.5)" 
-  },
-});
+
