@@ -36,6 +36,7 @@ export const authSlice = createSlice({
     getUserDetails: (state, action: PayloadAction<User>) => {
       state.user = { ...state.user, ...action.payload };
     },
+    
     success: (state) => {
       state.isEmailVerified = true;
     },
