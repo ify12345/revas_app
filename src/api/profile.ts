@@ -15,7 +15,7 @@ export const updatePassword = createAsyncThunk<RequestResponse, ChangePasswordPa
 	)
 
 export const updateProfile = createAsyncThunk<UpdateProfileResponse, UpdateProfilePayload, AsyncThunkConfig>
-	('profile/update',
+	('profile/update', 
 		async (payload, thunkAPI) => {
 			const Axios = await AxiosBase();
 			return apiRequest(Axios.patch('/v1/profile/update', payload), thunkAPI)
