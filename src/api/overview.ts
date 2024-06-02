@@ -12,5 +12,6 @@ export const getOverview = createAsyncThunk<GetOverviewResponse, GetOverviewPayl
 			const Axios = await AxiosBase();
 			return apiRequest(Axios.get(`/v1/profile/overview?startDate=${startDate}&endDate=${endDate}`),
 				thunkAPI)
+				
 		}
 	)
