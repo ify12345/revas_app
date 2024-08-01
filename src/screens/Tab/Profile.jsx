@@ -37,7 +37,7 @@ export default function Profile() {
                <UserCircleIcon color="gray" size={30} />
                <View style={styles.userInfo}>
                 <RText fontSize='12' color='black'>{user.firstname} {user.lastname}</RText>
-                <RText fontSize='10' color='gray'>Profile details</RText>
+                <RText fontSize='10' color='gray'>Profile details </RText>
                </View>
             </View>
             <ChevronRightIcon size={15} color="black"/>
